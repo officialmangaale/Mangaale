@@ -1,0 +1,22 @@
+import { ChevronDown, ChevronUp } from 'lucide-react'
+import { useState } from 'react'
+
+const FAQItem = ({ item }) => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div className="border border-white/10 rounded-2xl bg-[#151827]">
+      <button
+        type="button"
+        className="w-full text-left px-5 py-4 flex items-center justify-between gap-4"
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <span className="font-semibold text-white">{item.question}</span>
+        {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+      </button>
+      {open && <p className="px-5 pb-4 text-sm text-mangaale-ink-soft leading-relaxed">{item.answer}</p>}
+    </div>
+  )
+}
+
+export default FAQItem

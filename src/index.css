@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --mangaale-bg: #07080f;
+  --mangaale-panel: #11131d;
+  --mangaale-card: #171a27;
+  --mangaale-ink: #f2efea;
+  --mangaale-ink-soft: #c6c1b5;
+  --mangaale-accent: #e1ba58;
+  --mangaale-accent-soft: #f5d890;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-mangaale-bg text-mangaale-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .mangaale-shell {
+    @apply border border-white/10 bg-mangaale-card/85 backdrop-blur-xl rounded-3xl;
+    box-shadow: 0 30px 90px -55px rgba(225, 186, 88, 0.7);
+  }
+
+  .mangaale-card {
+    @apply rounded-2xl border border-white/10 bg-[#151726]/80 backdrop-blur-sm;
+    box-shadow: 0 20px 70px -45px rgba(0, 0, 0, 0.7);
+  }
+
+  .mangaale-button {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold tracking-wide transition-all duration-200;
+  }
+
+  .mangaale-button-primary {
+    @apply mangaale-button text-[#17120a] bg-mangaale-accent hover:bg-mangaale-accent-soft;
+    box-shadow: 0 14px 30px -16px rgba(225, 186, 88, 0.9);
+  }
+
+  .mangaale-button-secondary {
+    @apply mangaale-button border border-mangaale-accent/35 text-mangaale-accent hover:border-mangaale-accent hover:bg-mangaale-accent/10;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-extrabold tracking-tight text-white;
+  }
+
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-[0.08em] text-mangaale-accent border border-mangaale-accent/30 bg-mangaale-accent/6;
+  }
+}
