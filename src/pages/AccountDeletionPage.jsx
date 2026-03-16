@@ -13,17 +13,17 @@ const AccountDeletionPage = () => {
         <div className="mangaale-shell p-8 md:p-10 lg:p-12">
           <p className="section-eyebrow inline-flex">Legal</p>
           <h1 className="mt-6 text-4xl font-bold text-white md:text-5xl">Mangaale Partner Account Deletion</h1>
-          <p className="mt-4 text-sm text-mangaale-ink-soft">Last updated: March 15, 2026</p>
-          <p className="mt-6 max-w-3xl text-base leading-relaxed text-mangaale-ink-soft md:text-lg">
+          <p className="mt-4 text-sm text-mangaale-subtext">Last updated: March 15, 2026</p>
+          <p className="mt-6 max-w-3xl text-base leading-relaxed text-mangaale-subtext md:text-lg">
             This page explains how users of the Mangaale Partner mobile application can request deletion of their app account and associated data.
           </p>
 
-          <div className="mt-10 space-y-10 text-mangaale-ink-soft">
+          <div className="mt-10 space-y-10 text-mangaale-subtext">
             <section>
               <h2 className="text-2xl font-semibold text-white">How to Request Account Deletion</h2>
               <ol className="mt-4 list-decimal space-y-3 pl-5 leading-relaxed">
                 <li>
-                  Send an email to <a href="mailto:support@mangaale.com" className="text-mangaale-accent hover:underline">support@mangaale.com</a> with the subject line <strong className="text-white">Account Deletion Request</strong>.
+                  Send an email to <a href="mailto:support@mangaale.com" className="text-mangaale-primary hover:underline">support@mangaale.com</a> with the subject line <strong className="text-white">Account Deletion Request</strong>.
                 </li>
                 <li>
                   Include the account email address, phone number, restaurant name, and any other identifying details needed to verify ownership of the account.
@@ -70,10 +70,10 @@ const AccountDeletionPage = () => {
             <section>
               <h2 className="text-2xl font-semibold text-white">Contact</h2>
               <p className="mt-4 leading-relaxed">
-                For deletion requests or questions, contact <a href="mailto:support@mangaale.com" className="text-mangaale-accent hover:underline">support@mangaale.com</a>.
+                For deletion requests or questions, contact <a href="mailto:support@mangaale.com" className="text-mangaale-primary hover:underline">support@mangaale.com</a>.
               </p>
               <p className="mt-2 leading-relaxed">
-                Website: <a href="https://mangaale.com" className="text-mangaale-accent hover:underline">https://mangaale.com</a>
+                Website: <a href="https://mangaale.com" className="text-mangaale-primary hover:underline">https://mangaale.com</a>
               </p>
             </section>
           </div>

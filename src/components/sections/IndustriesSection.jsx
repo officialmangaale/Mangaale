@@ -16,8 +16,8 @@ const IndustriesSection = () => {
         {industriesData.map((industry) => (
           <article key={industry.name} className="mangaale-card p-6">
             <h3 className="text-xl font-semibold text-white">{industry.name}</h3>
-            <p className="mt-3 text-sm text-mangaale-ink-soft">{industry.description}</p>
-            <Link to="/solutions" className="mt-5 inline-flex items-center gap-2 text-sm text-mangaale-accent">
+            <p className="mt-3 text-sm text-mangaale-subtext">{industry.description}</p>
+            <Link to="/solutions" className="mt-5 inline-flex items-center gap-2 text-sm text-mangaale-primary">
               View use case <ArrowRight size={16} />
             </Link>
           </article>

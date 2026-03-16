@@ -1,34 +1,32 @@
 import usePageMeta from '../hooks/usePageMeta'
 import HeroSection from '../components/sections/HeroSection'
 import StatsSection from '../components/sections/StatsSection'
-import ServicesSection from '../components/sections/ServicesSection'
-import WhyChooseSection from '../components/sections/WhyChooseSection'
+import WhatIsMangaaleSection from '../components/sections/WhatIsMangaaleSection'
+import CoreUserFlowsSection from '../components/sections/CoreUserFlowsSection'
 import FeatureShowcaseSection from '../components/sections/FeatureShowcaseSection'
-import ProcessSection from '../components/sections/ProcessSection'
-import IndustriesSection from '../components/sections/IndustriesSection'
-import TestimonialSection from '../components/sections/TestimonialSection'
-import PricingSection from '../components/sections/PricingSection'
-import FAQSection from '../components/sections/FAQSection'
+import HowItWorksSection from '../components/sections/HowItWorksSection'
+import ProductPreviewSection from '../components/sections/ProductPreviewSection'
+import WhyChooseMangaaleSection from '../components/sections/WhyChooseMangaaleSection'
+import PilotMessageSection from '../components/sections/PilotMessageSection'
 import FinalCTASection from '../components/sections/FinalCTASection'
 
 const HomePage = () => {
   usePageMeta(
-    'Mangaale | Home',
-    'Premium restaurant and food commerce platform with billing, inventory, KDS, QR ordering, and delivery operations modules.'
+    'Mangaale | Restaurant Platform with QR Ordering & Delivery',
+    'Complete restaurant management platform with QR ordering, billing, order management, and delivery coordination. Currently onboarding restaurant partners in pilot phase.'
   )
 
   return (
-    <div className="space-y-24 pb-24">
+    <div className="w-full space-y-16 md:space-y-20 lg:space-y-24 pb-16 md:pb-20 lg:pb-24 pt-16 md:pt-20">
       <HeroSection />
       <StatsSection />
-      <ServicesSection />
-      <WhyChooseSection />
+      <WhatIsMangaaleSection />
+      <CoreUserFlowsSection />
       <FeatureShowcaseSection />
-      <ProcessSection />
-      <IndustriesSection />
-      <TestimonialSection />
-      <PricingSection compact />
-      <FAQSection />
+      <HowItWorksSection />
+      <ProductPreviewSection />
+      <WhyChooseMangaaleSection />
+      <PilotMessageSection />
       <FinalCTASection />
     </div>
   )

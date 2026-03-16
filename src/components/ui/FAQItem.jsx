@@ -14,7 +14,7 @@ const FAQItem = ({ item }) => {
         <span className="font-semibold text-white">{item.question}</span>
         {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </button>
-      {open && <p className="px-5 pb-4 text-sm text-mangaale-ink-soft leading-relaxed">{item.answer}</p>}
+      {open && <p className="px-5 pb-4 text-sm text-mangaale-subtext leading-relaxed">{item.answer}</p>}
     </div>
   )
 }

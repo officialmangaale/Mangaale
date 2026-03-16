@@ -2,11 +2,11 @@ import { useRoutes } from 'react-router-dom'
 import SiteLayout from '../layouts/SiteLayout'
 import HomePage from '../pages/HomePage'
 import AboutPage from '../pages/AboutPage'
-import ServicesPage from '../pages/ServicesPage'
-import SolutionsPage from '../pages/SolutionsPage'
+import ForRestaurantsPage from '../pages/ForRestaurantsPage'
+import ForCustomersPage from '../pages/ForCustomersPage'
+import ForRidersPage from '../pages/ForRidersPage'
 import PricingPage from '../pages/PricingPage'
 import ContactPage from '../pages/ContactPage'
-import AccountDeletionPage from '../pages/AccountDeletionPage'
 import PrivacyPolicyPage from '../pages/PrivacyPolicyPage'
 import NotFoundPage from '../pages/NotFoundPage'
 
@@ -17,11 +17,11 @@ const AppRoutes = () => {
       children: [
         { path: '/', element: <HomePage /> },
         { path: '/about', element: <AboutPage /> },
-        { path: '/services', element: <ServicesPage /> },
-        { path: '/solutions', element: <SolutionsPage /> },
+        { path: '/for-restaurants', element: <ForRestaurantsPage /> },
+        { path: '/for-customers', element: <ForCustomersPage /> },
+        { path: '/for-riders', element: <ForRidersPage /> },
         { path: '/pricing', element: <PricingPage /> },
         { path: '/contact', element: <ContactPage /> },
-        { path: '/account-deletion', element: <AccountDeletionPage /> },
         { path: '/privacy-policy', element: <PrivacyPolicyPage /> },
         { path: '*', element: <NotFoundPage /> }
       ]

@@ -34,14 +34,14 @@ const ServiceCard = ({ service, compact = false }) => {
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-mangaale-accent/25 bg-mangaale-accent/10 text-mangaale-accent">
           <Icon size={22} />
         </div>
-        <span className="rounded-full border border-white/15 px-2 py-1 text-xs text-mangaale-ink-soft">{service.tag}</span>
+        <span className="rounded-full border border-white/15 px-2 py-1 text-xs text-mangaale-subtext">{service.tag}</span>
       </div>
       <h3 className="mt-5 text-xl font-semibold text-white">{service.title}</h3>
-      <p className="mt-3 text-sm text-mangaale-ink-soft">{service.summary}</p>
+      <p className="mt-3 text-sm text-mangaale-subtext">{service.summary}</p>
       <p className="mt-4 text-sm leading-relaxed">{service.description}</p>
       <ul className="mt-5 space-y-2">
         {service.features.map((item) => (
-          <li key={item} className="flex items-start gap-2 text-sm text-mangaale-ink-soft">
+          <li key={item} className="flex items-start gap-2 text-sm text-mangaale-subtext">
             <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-mangaale-accent" />
             <span>{item}</span>
           </li>

@@ -1,72 +1,97 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Sparkles } from 'lucide-react'
-import { servicesData } from '../../data/servicesData'
+import { ArrowRight, Zap } from 'lucide-react'
+import { heroData } from '../../data/homeData'
 import SectionReveal from '../../components/shared/SectionReveal'
-import SectionHeader from '../../components/shared/SectionHeader'
 
 const HeroSection = () => {
   return (
-    <SectionReveal className="relative overflow-hidden">
-      <div className="absolute -right-24 -top-20 h-72 w-72 rounded-full bg-gradient-to-br from-mangaale-accent/20 to-transparent blur-3xl" />
-      <div className="mx-auto w-[92%] max-w-7xl px-2 pt-24 pb-16 lg:py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+    <SectionReveal className="relative overflow-hidden py-12 md:py-16 lg:py-24">
+      {/* Background gradient elements */}
+      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-gradient-to-br from-mangaale-primary/10 to-transparent blur-3xl" />
+      <div className="absolute -left-32 top-1/2 h-72 w-72 rounded-full bg-gradient-to-br from-mangaale-secondary/5 to-transparent blur-3xl" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid items-center gap-8 md:gap-12 lg:grid-cols-2">
+          {/* Left Content */}
           <div>
-            <p className="section-eyebrow">
-              <Sparkles size={14} />
-              Unified commerce for food brands
-            </p>
-            <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-[0.96] tracking-tight sm:text-5xl lg:text-6xl xl:text-[5rem]">
-              One operating system for
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-mangaale-accent to-mangaale-accent-soft">
-                {' '}modern restaurants and grocery brands.
-              </span>
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-mangaale-ink-soft">
-              Billing, inventory, kitchen flow, QR ordering, and delivery management in one clear platform.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link to="/contact" className="mangaale-button-primary">Book a Demo</Link>
-              <Link to="/services" className="mangaale-button-secondary inline-flex items-center gap-2">
-                Explore Platform
-                <ArrowRight size={18} />
-              </Link>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-mangaale-bg-soft rounded-full border border-mangaale-primary/20">
+              <Zap className="w-4 h-4 text-mangaale-primary" />
+              <span className="text-sm font-medium text-mangaale-primary">Pilot Phase - Onboarding Open</span>
             </div>
-            <div className="mt-10 flex flex-wrap gap-6 text-sm text-mangaale-ink-soft">
-              <p>Billing, inventory, and KDS</p>
-              <p>QR ordering and digital menus</p>
-              <p>Delivery, analytics, and control</p>
+
+            <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-mangaale-text">
+              {heroData.headline}
+            </h1>
+
+            <p className="mt-6 text-lg text-mangaale-subtext leading-relaxed max-w-xl">
+              {heroData.subheadline}
+            </p>
+
+            <p className="mt-4 text-sm text-mangaale-subtext italic">
+              {heroData.pilotNote}
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <button className="px-6 py-3 bg-gradient-to-r from-mangaale-primary to-mangaale-secondary text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-mangaale-primary/30 transition-all duration-300 flex items-center justify-center gap-2">
+                {heroData.cta1}
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <button className="px-6 py-3 border-2 border-mangaale-primary text-mangaale-primary rounded-lg font-semibold hover:bg-mangaale-bg-soft transition-colors">
+                {heroData.cta2}
+              </button>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="mt-10 flex flex-wrap gap-6 text-sm text-mangaale-subtext">
+              <div>✓ 150+ Restaurants</div>
+              <div>✓ 10K+ Orders</div>
+              <div>✓ 5+ Cities</div>
             </div>
           </div>
 
+          {/* Right - Hero Image Area */}
           <div className="relative">
-            <div className="mangaale-shell relative p-5 md:p-7">
-              <div className="rounded-2xl border border-white/8 bg-[#0a0e16] p-4 shadow-luxe">
-                <div className="flex gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-yellow-300" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
-                </div>
-                <h3 className="mt-5 text-xl font-semibold text-white">Mangaale Control Center</h3>
-                <div className="mt-5 grid gap-3">
-                  {servicesData.slice(0, 5).map((service) => (
-                    <div key={service.id} className="rounded-xl border border-white/10 bg-[#151a29] px-3 py-2 text-sm text-mangaale-ink-soft">
-                      {service.title}
+            <div className="relative">
+              {/* Mockup Container */}
+              <div className="space-y-4">
+                {/* Desktop Mockup */}
+                <div className="hidden md:block relative bg-gradient-to-br from-mangaale-bg-soft to-white rounded-2xl p-8 shadow-xl border border-mangaale-primary/10 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-mangaale-primary/5 to-transparent" />
+                  <div className="relative">
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      <div className="h-20 bg-gradient-to-br from-mangaale-primary to-mangaale-secondary rounded-lg opacity-80" />
+                      <div className="h-20 bg-gradient-to-br from-mangaale-secondary to-orangey-300 rounded-lg opacity-60" />
                     </div>
-                  ))}
+                    <div className="space-y-3">
+                      <div className="h-3 bg-mangaale-bg-soft rounded w-3/4" />
+                      <div className="h-3 bg-mangaale-bg-soft rounded w-1/2" />
+                    </div>
+                    <p className="mt-6 text-center text-mangaale-subtext text-sm">
+                      Restaurant Dashboard Preview
+                    </p>
+                  </div>
                 </div>
-                <p className="mt-4 text-xs text-mangaale-accent">Live operations across every channel</p>
+
+                {/* Mobile Preview */}
+                <div className="md:absolute md:bottom-0 md:right-0 md:w-1/2 mx-auto max-w-xs">
+                  <div className="bg-white rounded-3xl shadow-2xl border-8 border-mangaale-text p-1 overflow-hidden">
+                    <div className="bg-mangaale-bg-soft rounded-2xl p-4 space-y-3 min-h-96">
+                      <div className="h-8 bg-gradient-to-r from-mangaale-primary to-mangaale-secondary rounded w-2/3" />
+                      <div className="space-y-2">
+                        <div className="h-4 bg-mangaale-bg-soft rounded w-full" />
+                        <div className="h-4 bg-mangaale-bg-soft rounded w-5/6" />
+                      </div>
+                      <div className="pt-4 space-y-2">
+                        <div className="h-12 bg-white rounded-lg" />
+                        <div className="h-12 bg-white rounded-lg" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="mt-12">
-          <SectionHeader
-            eyebrow="Built for scale"
-            title="Trusted by ambitious food businesses"
-            description="From independent cafes to growing multi-location brands."
-            centered
-          />
         </div>
       </div>
     </SectionReveal>

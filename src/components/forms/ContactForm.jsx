@@ -77,7 +77,7 @@ const ContactForm = () => {
         <div
           className={`mb-4 rounded-xl px-4 py-3 text-sm ${
             feedback.type === 'success'
-              ? 'border border-mangaale-accent/50 bg-mangaale-accent/10 text-mangaale-accent'
+              ? 'border border-mangaale-primary/50 bg-mangaale-primary/10 text-mangaale-primary'
               : 'border border-red-400/40 bg-red-500/10 text-red-200'
           }`}
         >
@@ -91,7 +91,7 @@ const ContactForm = () => {
           onChange={(e) => onChange('name', e.target.value)}
           required
           placeholder="Your name"
-          className="w-full rounded-xl bg-[#10121d] border border-white/15 px-4 py-3 outline-none focus:border-mangaale-accent/60"
+          className="w-full rounded-xl bg-white border border-mangaale-primary/20 px-4 py-3 text-mangaale-text outline-none focus:border-mangaale-primary/60"
         />
         <input
           value={formData.email}
@@ -99,7 +99,7 @@ const ContactForm = () => {
           required
           type="email"
           placeholder="Work email"
-          className="w-full rounded-xl bg-[#10121d] border border-white/15 px-4 py-3 outline-none focus:border-mangaale-accent/60"
+          className="w-full rounded-xl bg-white border border-mangaale-primary/20 px-4 py-3 text-mangaale-text outline-none focus:border-mangaale-primary/60"
         />
         <input
           value={formData.phone}
@@ -107,21 +107,21 @@ const ContactForm = () => {
           required
           type="tel"
           placeholder="Phone number"
-          className="w-full rounded-xl bg-[#10121d] border border-white/15 px-4 py-3 outline-none focus:border-mangaale-accent/60"
+          className="w-full rounded-xl bg-white border border-mangaale-primary/20 px-4 py-3 text-mangaale-text outline-none focus:border-mangaale-primary/60"
         />
         <input
           value={formData.business}
           onChange={(e) => onChange('business', e.target.value)}
           required
           placeholder="Business name"
-          className="w-full rounded-xl bg-[#10121d] border border-white/15 px-4 py-3 outline-none focus:border-mangaale-accent/60"
+          className="w-full rounded-xl bg-white border border-mangaale-primary/20 px-4 py-3 text-mangaale-text outline-none focus:border-mangaale-primary/60"
         />
         <textarea
           value={formData.message}
           onChange={(e) => onChange('message', e.target.value)}
           rows={5}
           placeholder="Tell us about your operation"
-          className="w-full rounded-xl bg-[#10121d] border border-white/15 px-4 py-3 outline-none focus:border-mangaale-accent/60"
+          className="w-full rounded-xl bg-white border border-mangaale-primary/20 px-4 py-3 text-mangaale-text outline-none focus:border-mangaale-primary/60"
         />
         <button
           type="submit"

@@ -7,7 +7,7 @@ const SectionHeader = ({ eyebrow, title, description, centered = false }) => {
       <h2 className="section-title">{title}</h2>
       {description && (
         <p
-          className={`mt-4 max-w-2xl text-base leading-relaxed text-mangaale-ink-soft md:text-lg ${
+          className={`mt-4 max-w-2xl text-base leading-relaxed text-mangaale-subtext md:text-lg ${
             centered ? 'mx-auto' : ''
           }`}
         >

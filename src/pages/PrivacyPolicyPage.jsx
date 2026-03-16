@@ -8,30 +8,33 @@ const PrivacyPolicyPage = () => {
   )
 
   return (
-    <div className="pb-20">
-      <SectionReveal className="mx-auto w-[92%] max-w-5xl pt-24">
-        <div className="mangaale-shell p-8 md:p-10 lg:p-12">
+    <div className="pb-20 pt-20">
+      <div className="mx-auto w-[92%] max-w-4xl">
+        <div className="mb-10">
           <p className="section-eyebrow inline-flex">Legal</p>
-          <h1 className="mt-6 text-4xl font-bold text-white md:text-5xl">Mangaale Partner Privacy Policy</h1>
-          <p className="mt-4 text-sm text-mangaale-ink-soft">Last updated: March 15, 2026</p>
-          <p className="mt-6 max-w-3xl text-base leading-relaxed text-mangaale-ink-soft md:text-lg">
+          <h1 className="mt-6 text-4xl md:text-5xl font-bold text-mangaale-text">Privacy Policy</h1>
+          <p className="mt-4 text-sm text-mangaale-subtext">Last updated: March 15, 2026</p>
+        </div>
+        
+        <div>
+          <p className="mt-6 text-base leading-relaxed text-mangaale-text">
             This Privacy Policy explains how Mangaale ("Mangaale", "we", "us", or "our") collects, uses, stores, and shares information when you use the Mangaale Partner mobile application (the "App"). The App is built for restaurant owners and staff to manage restaurant operations, orders, menus, inventory, reports, and related services.
           </p>
 
-          <div className="mt-10 space-y-10 text-mangaale-ink-soft">
+          <div className="mt-12 space-y-12">
             <section>
-              <h2 className="text-2xl font-semibold text-white">1. Information We Collect</h2>
-              <ul className="mt-4 list-disc space-y-3 pl-5 leading-relaxed">
-                <li><strong className="text-white">Account and profile information:</strong> name, email address, phone number, password, business name, role, and related sign-in or verification details.</li>
-                <li><strong className="text-white">Restaurant and business information:</strong> restaurant name, owner name, restaurant type, address, city, state, postal code, UPI ID, GST number, FSSAI number, and similar business or compliance details.</li>
-                <li><strong className="text-white">Verification documents and uploaded media:</strong> Aadhaar card, PAN card, FSSAI license, GST certificate, business logo, background images, menu or item images, and other files or images you choose to upload.</li>
-                <li><strong className="text-white">Operational data:</strong> menu items, orders, invoices, receipts, analytics, reports, inventory records, recipe data, printer preferences, vendor records, staff details, referrals, and other information entered or generated while using the App.</li>
-                <li><strong className="text-white">Customer and order-related information:</strong> order details, item selections, payment status, delivery information, invoice records, and related restaurant transaction data that is available to your restaurant account.</li>
-                <li><strong className="text-white">Location information:</strong> precise location may be collected when you grant permission so your restaurant can be placed accurately for location-based features such as nearby restaurant discovery and restaurant location updates.</li>
-                <li><strong className="text-white">Nearby device and Bluetooth information:</strong> the App may access Bluetooth and nearby device permissions to scan for and connect to compatible printers. On some Android versions, location permission may also be required by the operating system for printer discovery.</li>
-                <li><strong className="text-white">Notification data:</strong> push notification tokens and related messaging identifiers used to send order alerts and other important service notifications.</li>
-                <li><strong className="text-white">Voice and AI inputs:</strong> if you use voice typing or AI-powered features, your device or its speech recognition provider may process microphone input to convert speech into text. We may receive and process the resulting transcript, along with related business context, to provide intelligence, assistant, or copilot responses.</li>
-                <li><strong className="text-white">Technical and usage information:</strong> device type, operating system, app version, IP address, logs, and general usage information needed to operate, secure, and improve the App.</li>
+              <h2 className="text-2xl font-bold text-mangaale-text mb-4">1. Information We Collect</h2>
+              <ul className="list-disc space-y-3 pl-6 text-mangaale-text leading-relaxed marker:text-mangaale-primary">
+                <li><strong className="text-mangaale-text">Account and profile information:</strong> name, email address, phone number, password, business name, role, and related sign-in or verification details.</li>
+                <li><strong className="text-mangaale-text">Restaurant and business information:</strong> restaurant name, owner name, restaurant type, address, city, state, postal code, UPI ID, GST number, FSSAI number, and similar business or compliance details.</li>
+                <li><strong className="text-mangaale-text">Verification documents and uploaded media:</strong> Aadhaar card, PAN card, FSSAI license, GST certificate, business logo, background images, menu or item images, and other files or images you choose to upload.</li>
+                <li><strong className="text-mangaale-text">Operational data:</strong> menu items, orders, invoices, receipts, analytics, reports, inventory records, recipe data, printer preferences, vendor records, staff details, referrals, and other information entered or generated while using the App.</li>
+                <li><strong className="text-mangaale-text">Customer and order-related information:</strong> order details, item selections, payment status, delivery information, invoice records, and related restaurant transaction data that is available to your restaurant account.</li>
+                <li><strong className="text-mangaale-text">Location information:</strong> precise location may be collected when you grant permission so your restaurant can be placed accurately for location-based features such as nearby restaurant discovery and restaurant location updates.</li>
+                <li><strong className="text-mangaale-text">Nearby device and Bluetooth information:</strong> the App may access Bluetooth and nearby device permissions to scan for and connect to compatible printers. On some Android versions, location permission may also be required by the operating system for printer discovery.</li>
+                <li><strong className="text-mangaale-text">Notification data:</strong> push notification tokens and related messaging identifiers used to send order alerts and other important service notifications.</li>
+                <li><strong className="text-mangaale-text">Voice and AI inputs:</strong> if you use voice typing or AI-powered features, your device or its speech recognition provider may process microphone input to convert speech into text. We may receive and process the resulting transcript, along with related business context, to provide intelligence, assistant, or copilot responses.</li>
+                <li><strong className="text-mangaale-text">Technical and usage information:</strong> device type, operating system, app version, IP address, logs, and general usage information needed to operate, secure, and improve the App.</li>
               </ul>
             </section>
 
@@ -104,16 +107,16 @@ const PrivacyPolicyPage = () => {
 
             <section>
               <h2 className="text-2xl font-semibold text-white">9. Contact Us</h2>
-              <p className="mt-4 leading-relaxed">
-                If you have any questions, privacy requests, or concerns about this Privacy Policy, contact us at <a href="mailto:support@mangaale.com" className="text-mangaale-accent hover:underline">support@mangaale.com</a>.
+              <p className="mb-2 text-mangaale-text leading-relaxed">
+                If you have any questions, privacy requests, or concerns about this Privacy Policy, contact us at <a href="mailto:support@mangaale.com" className="text-mangaale-primary hover:underline font-semibold">support@mangaale.com</a>.
               </p>
-              <p className="mt-2 leading-relaxed">
-                Website: <a href="https://mangaale.com" className="text-mangaale-accent hover:underline">https://mangaale.com</a>
+              <p className="text-mangaale-text leading-relaxed">
+                Website: <a href="https://mangaale.com" className="text-mangaale-primary hover:underline font-semibold">https://mangaale.com</a>
               </p>
             </section>
           </div>
         </div>
-      </SectionReveal>
+      </div>
     </div>
   )
 }

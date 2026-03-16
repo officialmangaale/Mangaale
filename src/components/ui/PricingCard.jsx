@@ -14,12 +14,12 @@ const PricingCard = ({ plan }) => {
         </p>
       )}
       <h3 className="text-2xl font-bold text-white">{plan.name}</h3>
-      <p className="mt-2 text-sm text-mangaale-ink-soft">{plan.description}</p>
+      <p className="mt-2 text-sm text-mangaale-subtext">{plan.description}</p>
       <div className="mt-6 text-4xl font-bold text-white">{plan.price}</div>
-      <p className="text-sm text-mangaale-ink-soft">{plan.period}</p>
+      <p className="text-sm text-mangaale-subtext">{plan.period}</p>
       <ul className="mt-6 space-y-2">
         {plan.features.map((item) => (
-          <li key={item} className="text-sm text-mangaale-ink-soft flex items-start gap-2">
+          <li key={item} className="text-sm text-mangaale-subtext flex items-start gap-2">
             <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-mangaale-accent" />
             <span>{item}</span>
           </li>

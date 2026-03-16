@@ -1,47 +1,54 @@
 export const pricingData = [
   {
     name: 'Starter',
-    price: 'INR 12,999',
-    period: 'per month',
-    description: 'For single outlets moving beyond basic tools.',
+    price: 'Contact Us',
+    period: 'during pilot phase',
+    description: 'Perfect for small restaurants or those starting with QR ordering.',
     popular: false,
-    cta: 'Start with Starter',
+    cta: 'Book a Demo',
     features: [
-      'Billing and inventory',
-      'Digital menu and QR ordering',
-      '2 user seats',
-      'Core reports',
-      'Email support'
+      'QR code menu system',
+      'Basic order management',
+      'Billing & invoicing',
+      'Up to 2 staff members',
+      'Order tracking',
+      'Basic reports'
     ]
   },
   {
     name: 'Growth',
-    price: 'INR 24,999',
-    period: 'per month',
-    description: 'For growing teams managing more volume and more channels.',
+    price: 'Contact Us',
+    period: 'during pilot phase',
+    description: 'For restaurants ready to scale with delivery and advanced features.',
     popular: true,
-    cta: 'Choose Growth',
+    cta: 'Get Growth Plan',
     features: [
       'Everything in Starter',
+      'Delivery partner management',
       'Kitchen display system',
-      'Automated stock alerts',
-      'Delivery and grocery modules',
-      'Priority onboarding'
+      'Rider assignment & tracking',
+      'Up to 10 staff members',
+      'Advanced analytics',
+      'Priority support'
     ]
   },
   {
     name: 'Enterprise',
     price: 'Custom',
-    period: 'custom quote',
-    description: 'For chains that need scale, support, and tailored rollout.',
+    period: 'tailored solution',
+    description: 'For restaurant chains and high-volume operations requiring customization.',
     popular: false,
-    cta: 'Book Enterprise Demo',
+    cta: 'Contact Sales',
     features: [
-      'Unlimited outlets and users',
-      'Advanced reporting',
-      'Dedicated implementation lead',
+      'Unlimited staff & locations',
+      'Multi-outlet management',
       'Custom integrations',
-      'Priority support'
+      'Dedicated account manager',
+      'Advanced rider management',
+      'Custom reporting',
+      ' 24/7 Priority support'
     ]
   }
 ]
+
+export const pricingNote = 'Pricing is subject to change based on business requirements and rollout stage. Pilot participants may receive special pricing and benefits.'

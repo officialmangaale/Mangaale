@@ -1,88 +1,147 @@
-import { Link, NavLink } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
-
-const navItems = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
-  { label: 'Services', to: '/services' },
-  { label: 'Solutions', to: '/solutions' },
-  { label: 'Pricing', to: '/pricing' },
-  { label: 'Contact', to: '/contact' }
-]
+import { motion } from 'framer-motion'
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  const linkClass = ({ isActive }) =>
-    isActive
-      ? 'text-mangaale-accent transition-colors'
-      : 'text-mangaale-ink hover:text-mangaale-accent transition-colors'
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const navItems = [
+    { label: 'Home', path: '/' },
+    { label: 'For Restaurants', path: '/for-restaurants' },
+    { label: 'For Customers', path: '/for-customers' },
+    { label: 'For Riders', path: '/for-riders' },
+    { label: 'About', path: '/about' },
+    { label: 'Contact', path: '/contact' },
+    { label: 'Privacy Policy', path: '/privacy-policy' }
+  ]
+
+  const isActive = (path) => location.pathname === path
+
+  const handleBookDemo = () => {
+    navigate('/contact')
+    setIsOpen(false)
+  }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-[#0a0b11]/85 backdrop-blur-md border-b border-white/8">
-      <div className="mx-auto w-[92%] max-w-7xl px-2 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-mangaale-accent/70 bg-mangaale-accent/10 text-mangaale-accent font-display font-bold">
-            M
-          </span>
-          <span className="font-display text-xl font-bold tracking-wide">Mangaale</span>
-        </Link>
-
-        <nav className="hidden lg:flex items-center gap-8">
-          {navItems.map((item) => (
-            <NavLink key={item.label} to={item.to} className={linkClass}>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        <div className="hidden lg:flex items-center gap-3">
-          <Link
-            to="/contact"
-            className="mangaale-button-primary"
-          >
-            Book a Demo
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-white shadow-lg backdrop-blur-sm'
+          : 'bg-white/95 backdrop-blur-sm'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-mangaale-primary to-mangaale-secondary rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">M</span>
+            </div>
+            <span className="hidden sm:inline font-bold text-xl text-mangaale-text">
+              Mangaale
+            </span>
           </Link>
-        </div>
 
-        <button
-          type="button"
-          className="lg:hidden mangaale-button-secondary px-3"
-          onClick={() => setOpen((prev) => !prev)}
-          aria-expanded={open}
-          aria-label="Toggle navigation menu"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
-
-      {open && (
-        <div className="lg:hidden border-t border-white/8 bg-[#11131d]">
-          <div className="mx-auto w-[92%] max-w-7xl px-2 py-5 space-y-2">
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-8 lg:gap-12">
             {navItems.map((item) => (
-              <NavLink
-                key={item.label}
-                to={item.to}
-                className={({ isActive }) =>
-                  `block py-2 ${isActive ? 'text-mangaale-accent' : 'text-mangaale-ink'} text-sm`
-                }
-                onClick={() => setOpen(false)}
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`text-sm font-medium transition-colors ${
+                  isActive(item.path)
+                    ? 'text-mangaale-primary'
+                    : 'text-mangaale-text hover:text-mangaale-primary'
+                }`}
               >
                 {item.label}
-              </NavLink>
+              </Link>
             ))}
-            <Link
-              to="/contact"
-              className="block mt-2 mangaale-button-primary text-center"
-              onClick={() => setOpen(false)}
-            >
-              Book a Demo
-            </Link>
           </div>
+
+          {/* CTA Buttons - Desktop */}
+          <div className="hidden md:flex items-center gap-3">
+            <button 
+              onClick={handleBookDemo}
+              className="px-4 py-2 text-mangaale-primary border-2 border-mangaale-primary rounded-lg font-medium hover:bg-mangaale-bg-soft transition-colors cursor-pointer"
+            >
+              Book Demo
+            </button>
+            <button 
+              onClick={handleBookDemo}
+              className="px-4 py-2 bg-gradient-to-r from-mangaale-primary to-mangaale-secondary text-white rounded-lg font-medium hover:shadow-lg transition-all cursor-pointer"
+            >
+              Partner With Us
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 hover:bg-mangaale-bg-soft rounded-lg transition-colors"
+          >
+            {isOpen ? (
+              <X className="w-6 h-6 text-mangaale-text" />
+            ) : (
+              <Menu className="w-6 h-6 text-mangaale-text" />
+            )}
+          </button>
         </div>
-      )}
-    </header>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="md:hidden pb-4 border-t border-mangaale-bg-soft"
+          >
+            <div className="flex flex-col gap-3 pt-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`px-4 py-2 rounded-lg transition-colors ${
+                    isActive(item.path)
+                      ? 'bg-mangaale-bg-soft text-mangaale-primary font-medium'
+                      : 'text-mangaale-text hover:bg-mangaale-bg-soft'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="flex flex-col gap-2 pt-2">
+                <button 
+                  onClick={handleBookDemo}
+                  className="w-full px-4 py-2 text-mangaale-primary border-2 border-mangaale-primary rounded-lg font-medium hover:bg-mangaale-bg-soft transition-colors cursor-pointer"
+                >
+                  Book Demo
+                </button>
+                <button 
+                  onClick={handleBookDemo}
+                  className="w-full px-4 py-2 bg-gradient-to-r from-mangaale-primary to-mangaale-secondary text-white rounded-lg font-medium hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Partner With Us
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </nav>
   )
 }
 

@@ -8,13 +8,15 @@ export default {
     extend: {
       colors: {
         mangaale: {
-          bg: '#07080f',
-          panel: '#12131c',
-          card: '#181a24',
-          ink: '#f4f1e8',
-          'ink-soft': '#c9c4b7',
-          accent: '#e1ba58',
-          'accent-soft': '#f5d78f'
+          primary: '#FF7A00',
+          secondary: '#FFA133',
+          dark: '#1F2937',
+          text: '#111827',
+          subtext: '#6B7280',
+          bg: '#FFFFFF',
+          'bg-soft': '#FFF7ED',
+          accent: '#FF7A00',
+          'accent-soft': '#FFA133'
         }
       },
       opacity: {
