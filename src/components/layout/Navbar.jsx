@@ -34,6 +34,20 @@ const Navbar = () => {
     setIsOpen(false)
   }
 
+  const handleDownload = () => {
+    // If on home page, scroll to section, otherwise navigate to download page
+    if (location.pathname === '/') {
+      const element = document.getElementById('download-app-section')
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+        setIsOpen(false)
+      }
+    } else {
+      navigate('/download')
+      setIsOpen(false)
+    }
+  }
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -73,6 +87,12 @@ const Navbar = () => {
 
           {/* CTA Buttons - Desktop */}
           <div className="hidden md:flex items-center gap-3">
+            <button 
+              onClick={handleDownload}
+              className="px-4 py-2 text-mangaale-primary hover:text-mangaale-secondary font-medium transition-colors cursor-pointer"
+            >
+              Download App
+            </button>
             <button 
               onClick={handleBookDemo}
               className="px-4 py-2 text-mangaale-primary border-2 border-mangaale-primary rounded-lg font-medium hover:bg-mangaale-bg-soft transition-colors cursor-pointer"
@@ -124,6 +144,12 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="flex flex-col gap-2 pt-2">
+                <button 
+                  onClick={handleDownload}
+                  className="w-full px-4 py-2 text-mangaale-primary font-medium border-2 border-mangaale-primary rounded-lg hover:bg-mangaale-bg-soft transition-colors cursor-pointer"
+                >
+                  Download App
+                </button>
                 <button 
                   onClick={handleBookDemo}
                   className="w-full px-4 py-2 text-mangaale-primary border-2 border-mangaale-primary rounded-lg font-medium hover:bg-mangaale-bg-soft transition-colors cursor-pointer"

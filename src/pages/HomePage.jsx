@@ -8,6 +8,7 @@ import HowItWorksSection from '../components/sections/HowItWorksSection'
 import ProductPreviewSection from '../components/sections/ProductPreviewSection'
 import WhyChooseMangaaleSection from '../components/sections/WhyChooseMangaaleSection'
 import PilotMessageSection from '../components/sections/PilotMessageSection'
+import DownloadAppSection from '../components/sections/DownloadAppSection'
 import FinalCTASection from '../components/sections/FinalCTASection'
 
 const HomePage = () => {
@@ -27,6 +28,7 @@ const HomePage = () => {
       <ProductPreviewSection />
       <WhyChooseMangaaleSection />
       <PilotMessageSection />
+      <DownloadAppSection />
       <FinalCTASection />
     </div>
   )
