@@ -38,8 +38,10 @@ export const appInfo = {
   ]
 };
 
+// APK download URL is now fetched dynamically from the API via useApkDownload hook
+// API endpoint: https://user-prod.mangaale.com/app/latest
 export const downloadLinks = {
-  apk: '/downloads/mangaale/mangaale-latest.apk',
+  apkApi: 'https://user-prod.mangaale.com/app/latest',
   playStore: 'https://play.google.com/store/apps/details?id=com.mangaale.app', // Coming soon
   appStore: 'https://apps.apple.com/app/mangaale', // Coming soon
 };

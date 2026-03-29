@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -17,6 +17,11 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Close menu on route change
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location.pathname])
+
   const navItems = [
     { label: 'Home', path: '/' },
     { label: 'For Restaurants', path: '/for-restaurants' },
@@ -31,20 +36,16 @@ const Navbar = () => {
 
   const handleBookDemo = () => {
     navigate('/contact')
-    setIsOpen(false)
   }
 
   const handleDownload = () => {
-    // If on home page, scroll to section, otherwise navigate to download page
     if (location.pathname === '/') {
       const element = document.getElementById('download-app-section')
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' })
-        setIsOpen(false)
       }
     } else {
       navigate('/download')
-      setIsOpen(false)
     }
   }
 
@@ -52,32 +53,32 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white shadow-lg backdrop-blur-sm'
-          : 'bg-white/95 backdrop-blur-sm'
+          ? 'bg-white/95 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.08)]'
+          : 'bg-white/90 backdrop-blur-sm'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      <div className="mangaale-container">
+        <div className="flex items-center justify-between h-16 md:h-[72px]">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-mangaale-primary to-mangaale-secondary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">M</span>
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="w-9 h-9 bg-gradient-to-br from-mangaale-primary to-mangaale-secondary rounded-xl flex items-center justify-center">
+              <span className="text-white font-display font-bold text-sm">M</span>
             </div>
-            <span className="hidden sm:inline font-bold text-xl text-mangaale-text">
+            <span className="hidden sm:inline font-display text-xl font-extrabold text-mangaale-text">
               Mangaale
             </span>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8 lg:gap-12">
+          <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-sm font-medium transition-colors ${
+                className={`px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 ${
                   isActive(item.path)
-                    ? 'text-mangaale-primary'
-                    : 'text-mangaale-text hover:text-mangaale-primary'
+                    ? 'text-mangaale-primary bg-mangaale-primary/5'
+                    : 'text-mangaale-subtext hover:text-mangaale-text hover:bg-gray-50'
                 }`}
               >
                 {item.label}
@@ -86,22 +87,22 @@ const Navbar = () => {
           </div>
 
           {/* CTA Buttons - Desktop */}
-          <div className="hidden md:flex items-center gap-3">
-            <button 
+          <div className="hidden lg:flex items-center gap-2.5">
+            <button
               onClick={handleDownload}
-              className="px-4 py-2 text-mangaale-primary hover:text-mangaale-secondary font-medium transition-colors cursor-pointer"
+              className="px-4 py-2 text-mangaale-primary hover:bg-mangaale-primary/5 rounded-lg text-[13px] font-semibold transition-all duration-200 cursor-pointer"
             >
               Download App
             </button>
-            <button 
+            <button
               onClick={handleBookDemo}
-              className="px-4 py-2 text-mangaale-primary border-2 border-mangaale-primary rounded-lg font-medium hover:bg-mangaale-bg-soft transition-colors cursor-pointer"
+              className="px-4 py-2 text-mangaale-primary border border-mangaale-primary/30 rounded-lg text-[13px] font-semibold hover:bg-mangaale-bg-soft transition-all duration-200 cursor-pointer"
             >
               Book Demo
             </button>
-            <button 
+            <button
               onClick={handleBookDemo}
-              className="px-4 py-2 bg-gradient-to-r from-mangaale-primary to-mangaale-secondary text-white rounded-lg font-medium hover:shadow-lg transition-all cursor-pointer"
+              className="px-4 py-2 bg-gradient-to-r from-mangaale-primary to-mangaale-secondary text-white rounded-lg text-[13px] font-semibold hover:shadow-md transition-all duration-200 cursor-pointer"
             >
               Partner With Us
             </button>
@@ -110,62 +111,64 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 hover:bg-mangaale-bg-soft rounded-lg transition-colors"
+            className="lg:hidden p-2 hover:bg-gray-50 rounded-lg transition-colors"
           >
             {isOpen ? (
-              <X className="w-6 h-6 text-mangaale-text" />
+              <X className="w-5 h-5 text-mangaale-text" />
             ) : (
-              <Menu className="w-6 h-6 text-mangaale-text" />
+              <Menu className="w-5 h-5 text-mangaale-text" />
             )}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md:hidden pb-4 border-t border-mangaale-bg-soft"
-          >
-            <div className="flex flex-col gap-3 pt-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-4 py-2 rounded-lg transition-colors ${
-                    isActive(item.path)
-                      ? 'bg-mangaale-bg-soft text-mangaale-primary font-medium'
-                      : 'text-mangaale-text hover:bg-mangaale-bg-soft'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <div className="flex flex-col gap-2 pt-2">
-                <button 
-                  onClick={handleDownload}
-                  className="w-full px-4 py-2 text-mangaale-primary font-medium border-2 border-mangaale-primary rounded-lg hover:bg-mangaale-bg-soft transition-colors cursor-pointer"
-                >
-                  Download App
-                </button>
-                <button 
-                  onClick={handleBookDemo}
-                  className="w-full px-4 py-2 text-mangaale-primary border-2 border-mangaale-primary rounded-lg font-medium hover:bg-mangaale-bg-soft transition-colors cursor-pointer"
-                >
-                  Book Demo
-                </button>
-                <button 
-                  onClick={handleBookDemo}
-                  className="w-full px-4 py-2 bg-gradient-to-r from-mangaale-primary to-mangaale-secondary text-white rounded-lg font-medium hover:shadow-lg transition-all cursor-pointer"
-                >
-                  Partner With Us
-                </button>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden overflow-hidden border-t border-gray-100"
+            >
+              <div className="flex flex-col gap-1 py-4">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`px-4 py-2.5 rounded-lg text-[15px] transition-all duration-200 ${
+                      isActive(item.path)
+                        ? 'bg-mangaale-primary/5 text-mangaale-primary font-semibold'
+                        : 'text-mangaale-text hover:bg-gray-50'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <div className="flex flex-col gap-2.5 pt-3 mt-2 border-t border-gray-100">
+                  <button
+                    onClick={handleDownload}
+                    className="w-full px-4 py-2.5 text-mangaale-primary font-semibold border border-mangaale-primary/30 rounded-xl hover:bg-mangaale-bg-soft transition-all duration-200 cursor-pointer text-[15px]"
+                  >
+                    Download App
+                  </button>
+                  <button
+                    onClick={handleBookDemo}
+                    className="w-full px-4 py-2.5 text-mangaale-primary border border-mangaale-primary/30 rounded-xl font-semibold hover:bg-mangaale-bg-soft transition-all duration-200 cursor-pointer text-[15px]"
+                  >
+                    Book Demo
+                  </button>
+                  <button
+                    onClick={handleBookDemo}
+                    className="w-full px-4 py-2.5 bg-gradient-to-r from-mangaale-primary to-mangaale-secondary text-white rounded-xl font-semibold hover:shadow-md transition-all duration-200 cursor-pointer text-[15px]"
+                  >
+                    Partner With Us
+                  </button>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   )

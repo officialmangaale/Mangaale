@@ -18,7 +18,7 @@ const HomePage = () => {
   )
 
   return (
-    <div className="w-full space-y-16 md:space-y-20 lg:space-y-24 pb-16 md:pb-20 lg:pb-24 pt-16 md:pt-20">
+    <div className="w-full pt-[72px]">
       <HeroSection />
       <StatsSection />
       <WhatIsMangaaleSection />
