@@ -1,67 +1,91 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react'
+
+const VERSION_URL = '/downloads/mangaale/version-info.json'
+const SEEN_KEY = 'mangaale_app_version'
+const LAST_CHECK_KEY = 'mangaale_last_check'
+const DISMISSED_KEY = 'mangaale_update_dismissed'
+
+/** localStorage can throw in private mode / when storage is disabled. */
+const safeGet = (key) => {
+  try {
+    return localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+const safeSet = (key, value) => {
+  try {
+    localStorage.setItem(key, value)
+  } catch {
+    /* storage unavailable — the feature simply degrades to "no banner" */
+  }
+}
 
 /**
- * Hook to check for app updates
- * Can be used to show update notifications to users
+ * Checks the published version manifest for a newer app build.
+ *
+ * Previously this only flagged an update when `mangaale_app_version` was
+ * already in localStorage — but nothing ever wrote that key, so the banner
+ * could never fire. The first successful check now records the version it saw,
+ * and later checks compare against it.
  */
 const useAppVersionCheck = () => {
-  const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [latestVersion, setLatestVersion] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [updateAvailable, setUpdateAvailable] = useState(false)
+  const [latestVersion, setLatestVersion] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  const checkForUpdates = async () => {
-    setLoading(true);
-    setError(null);
+  const checkForUpdates = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+
     try {
-      // Fetch version info from the version-info.json
-      const response = await fetch('/downloads/mangaale/version-info.json');
-      if (!response.ok) throw new Error('Failed to fetch version info');
-      
-      const data = await response.json();
-      const latestVersionInfo = data.latest;
-      
-      setLatestVersion(latestVersionInfo);
+      const response = await fetch(VERSION_URL, { cache: 'no-cache' })
+      if (!response.ok) throw new Error('Failed to fetch version info')
 
-      // Check if update is available
-      // In a real app, this would check against the installed app version
-      // For now, we're just setting it based on localStorage or session storage
-      const lastCheckedVersion = localStorage.getItem('mangaale_app_version');
-      
-      if (lastCheckedVersion && lastCheckedVersion !== latestVersionInfo.version) {
-        setUpdateAvailable(true);
+      const data = await response.json()
+      const latest = data?.latest
+      if (!latest?.version) throw new Error('Version manifest is missing a latest version')
+
+      setLatestVersion(latest)
+
+      const seen = safeGet(SEEN_KEY)
+
+      if (!seen) {
+        // First visit: remember the current version, don't nag straight away.
+        safeSet(SEEN_KEY, latest.version)
+      } else if (seen !== latest.version && safeGet(DISMISSED_KEY) !== latest.version) {
+        setUpdateAvailable(true)
       }
 
-      // Store the checked version
-      localStorage.setItem('mangaale_last_check', new Date().toISOString());
+      safeSet(LAST_CHECK_KEY, new Date().toISOString())
     } catch (err) {
-      console.error('Version check error:', err);
-      setError(err.message);
+      // Non-fatal: the site works fine without the update banner.
+      setError(err?.message || 'Version check failed')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }, [])
 
-  // Auto-check on mount
+  /** Hides the banner and remembers the choice for this version. */
+  const dismissUpdate = useCallback(() => {
+    setUpdateAvailable(false)
+    if (latestVersion?.version) {
+      safeSet(DISMISSED_KEY, latestVersion.version)
+      safeSet(SEEN_KEY, latestVersion.version)
+    }
+  }, [latestVersion])
+
   useEffect(() => {
-    // Check if last check was more than 24 hours ago
-    const lastCheck = localStorage.getItem('mangaale_last_check');
-    const now = new Date().getTime();
-    const lastCheckTime = lastCheck ? new Date(lastCheck).getTime() : 0;
-    const hoursSinceLastCheck = (now - lastCheckTime) / (1000 * 60 * 60);
+    const lastCheck = safeGet(LAST_CHECK_KEY)
+    const lastCheckTime = lastCheck ? new Date(lastCheck).getTime() : 0
+    const hoursSince = (Date.now() - lastCheckTime) / (1000 * 60 * 60)
 
-    if (hoursSinceLastCheck > 24) {
-      checkForUpdates();
-    }
-  }, []);
+    if (hoursSince > 24) checkForUpdates()
+  }, [checkForUpdates])
 
-  return {
-    updateAvailable,
-    latestVersion,
-    loading,
-    error,
-    checkForUpdates
-  };
-};
+  return { updateAvailable, latestVersion, loading, error, checkForUpdates, dismissUpdate }
+}
 
-export default useAppVersionCheck;
+export default useAppVersionCheck

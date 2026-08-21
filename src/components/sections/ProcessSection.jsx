@@ -14,7 +14,7 @@ const ProcessSection = () => {
         {processData.map((item) => (
           <div key={item.step} className="mangaale-card p-6">
             <p className="text-sm text-mangaale-accent">Step {item.step}</p>
-            <h3 className="mt-4 text-xl font-semibold text-white">{item.title}</h3>
+            <h3 className="mt-4 text-xl font-semibold text-mangaale-text">{item.title}</h3>
             <p className="mt-3 text-sm text-mangaale-subtext">{item.text}</p>
           </div>
         ))}

@@ -34,9 +34,9 @@ const ServiceCard = ({ service, compact = false }) => {
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-mangaale-accent/25 bg-mangaale-accent/10 text-mangaale-accent">
           <Icon size={22} />
         </div>
-        <span className="rounded-full border border-white/15 px-2 py-1 text-xs text-mangaale-subtext">{service.tag}</span>
+        <span className="rounded-full border border-mangaale-border px-2 py-1 text-xs text-mangaale-subtext">{service.tag}</span>
       </div>
-      <h3 className="mt-5 text-xl font-semibold text-white">{service.title}</h3>
+      <h3 className="mt-5 text-xl font-semibold text-mangaale-text">{service.title}</h3>
       <p className="mt-3 text-sm text-mangaale-subtext">{service.summary}</p>
       <p className="mt-4 text-sm leading-relaxed">{service.description}</p>
       <ul className="mt-5 space-y-2">
@@ -54,7 +54,7 @@ const ServiceCard = ({ service, compact = false }) => {
           className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-mangaale-accent transition-all hover:gap-2"
         >
           Learn more
-          <span>-></span>
+          <span aria-hidden="true">→</span>
         </Link>
       )}
     </article>

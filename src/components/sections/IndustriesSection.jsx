@@ -15,7 +15,7 @@ const IndustriesSection = () => {
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {industriesData.map((industry) => (
           <article key={industry.name} className="mangaale-card p-6">
-            <h3 className="text-xl font-semibold text-white">{industry.name}</h3>
+            <h3 className="text-xl font-semibold text-mangaale-text">{industry.name}</h3>
             <p className="mt-3 text-sm text-mangaale-subtext">{industry.description}</p>
             <Link to="/solutions" className="mt-5 inline-flex items-center gap-2 text-sm text-mangaale-primary">
               View use case <ArrowRight size={16} />

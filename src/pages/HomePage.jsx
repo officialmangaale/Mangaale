@@ -1,33 +1,33 @@
 import usePageMeta from '../hooks/usePageMeta'
 import HeroSection from '../components/sections/HeroSection'
 import StatsSection from '../components/sections/StatsSection'
-import WhatIsMangaaleSection from '../components/sections/WhatIsMangaaleSection'
-import CoreUserFlowsSection from '../components/sections/CoreUserFlowsSection'
-import FeatureShowcaseSection from '../components/sections/FeatureShowcaseSection'
 import HowItWorksSection from '../components/sections/HowItWorksSection'
-import ProductPreviewSection from '../components/sections/ProductPreviewSection'
-import WhyChooseMangaaleSection from '../components/sections/WhyChooseMangaaleSection'
-import PilotMessageSection from '../components/sections/PilotMessageSection'
+import EcosystemSection from '../components/sections/EcosystemSection'
+import RestaurantSection from '../components/sections/RestaurantSection'
+import CustomerSection from '../components/sections/CustomerSection'
+import BuiltForEveryoneSection from '../components/sections/BuiltForEveryoneSection'
+import PopularRestaurantsSection from '../components/sections/PopularRestaurantsSection'
+import TestimonialsSection from '../components/sections/TestimonialsSection'
 import DownloadAppSection from '../components/sections/DownloadAppSection'
 import FinalCTASection from '../components/sections/FinalCTASection'
 
 const HomePage = () => {
   usePageMeta(
-    'Mangaale | Restaurant Platform with QR Ordering & Delivery',
-    'Complete restaurant management platform with QR ordering, billing, order management, and delivery coordination. Currently onboarding restaurant partners in pilot phase.'
+    'Restaurant Platform with QR Ordering & Delivery',
+    'Mangaale connects local restaurants, customers and riders — QR ordering, billing, order management and live delivery tracking in one platform.'
   )
 
   return (
-    <div className="w-full space-y-16 md:space-y-20 lg:space-y-24 pb-16 md:pb-20 lg:pb-24 pt-16 md:pt-20">
+    <div className="w-full">
       <HeroSection />
       <StatsSection />
-      <WhatIsMangaaleSection />
-      <CoreUserFlowsSection />
-      <FeatureShowcaseSection />
       <HowItWorksSection />
-      <ProductPreviewSection />
-      <WhyChooseMangaaleSection />
-      <PilotMessageSection />
+      <EcosystemSection />
+      <RestaurantSection />
+      <CustomerSection />
+      <BuiltForEveryoneSection />
+      <PopularRestaurantsSection />
+      <TestimonialsSection />
       <DownloadAppSection />
       <FinalCTASection />
     </div>

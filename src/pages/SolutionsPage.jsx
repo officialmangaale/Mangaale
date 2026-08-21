@@ -19,9 +19,9 @@ const SolutionsPage = () => {
           {solutionsData.map((solution) => (
             <article key={solution.title} className="mangaale-card p-6">
               <p className="text-sm text-mangaale-primary">{solution.audience}</p>
-              <h3 className="mt-3 text-2xl font-semibold text-white">{solution.title}</h3>
+              <h3 className="mt-3 text-2xl font-semibold text-mangaale-text">{solution.title}</h3>
               <p className="mt-3 text-mangaale-subtext">{solution.outcome}</p>
-              <p className="mt-5 text-sm font-semibold text-white">Modules included:</p>
+              <p className="mt-5 text-sm font-semibold text-mangaale-text">Modules included:</p>
               <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-mangaale-subtext">
                 {solution.modules.map((module) => (
                   <li key={module}>{module}</li>

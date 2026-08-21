@@ -1,7 +1,9 @@
 import React from 'react'
 import usePageMeta from '../hooks/usePageMeta'
 import SectionReveal from '../components/shared/SectionReveal'
-import * as Icons from 'lucide-react'
+import { Link } from 'react-router-dom'
+import Icon from '../components/ui/Icon'
+import CTAButton from '../components/ui/CTAButton'
 import { riderHero, riderBenefits, riderFeatures, riderRequirements, riderFlow, riderCTA } from '../data/riderData'
 
 const ForRidersPage = () => {
@@ -18,9 +20,9 @@ const ForRidersPage = () => {
           <p className="text-lg text-mangaale-subtext max-w-2xl mx-auto mb-8">
             {riderHero.subheadline}
           </p>
-          <button className="px-8 py-3 bg-gradient-to-r from-mangaale-primary to-mangaale-secondary text-white rounded-lg font-semibold hover:shadow-lg">
+          <Link to="/contact" className="mangaale-button-primary">
             {riderHero.cta}
-          </button>
+          </Link>
         </div>
       </SectionReveal>
 
@@ -29,11 +31,11 @@ const ForRidersPage = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-mangaale-text mb-12 text-center">Why Riders Love Mangaale</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {riderBenefits.map((benefit, index) => {
-            const IconComponent = Icons[benefit.icon]
+            const iconName = benefit.icon
             return (
               <div key={index} className="bg-white rounded-xl p-6 border border-mangaale-primary/10 hover:border-mangaale-primary/30 transition-all">
                 <div className="w-12 h-12 bg-gradient-to-br from-mangaale-primary to-mangaale-secondary rounded-lg flex items-center justify-center text-white mb-4">
-                  {IconComponent && <IconComponent className="w-6 h-6" />}
+                  <Icon name={iconName} className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-bold text-mangaale-text mb-2">{benefit.title}</h3>
                 <p className="text-mangaale-subtext">{benefit.description}</p>
@@ -108,9 +110,12 @@ const ForRidersPage = () => {
           <p className="text-lg mb-8 max-w-2xl mx-auto">{riderCTA.subtitle}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {riderCTA.buttons.map((btn, idx) => (
-              <button key={idx} className="px-8 py-3 bg-white text-mangaale-primary rounded-lg font-semibold hover:shadow-lg transition-all">
-                {btn.label}
-              </button>
+              <CTAButton
+                key={idx}
+                action={btn.action}
+                label={btn.label}
+                variant={idx === 0 ? "solid" : "outline"}
+              />
             ))}
           </div>
         </div>

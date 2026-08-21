@@ -36,7 +36,7 @@ const WhyChooseSection = () => {
       />
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {points.map((point) => (
-          <FeatureCard key={point.title} Icon={point.Icon} title={point.title} text={point.text} />
+          <FeatureCard key={point.title} icon={point.Icon} title={point.title} text={point.text} />
         ))}
       </div>
     </SectionReveal>

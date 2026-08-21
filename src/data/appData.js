@@ -39,7 +39,10 @@ export const appInfo = {
 };
 
 export const downloadLinks = {
-  apk: '/downloads/mangaale/mangaale-latest.apk',
+  // Points at the APK that actually exists in public/downloads/mangaale/.
+  // The previous value ('mangaale-latest.apk') had no matching file, so every
+  // download button returned 404. Update both together when shipping a new build.
+  apk: '/downloads/mangaale/app-release.apk',
   playStore: 'https://play.google.com/store/apps/details?id=com.mangaale.app', // Coming soon
   appStore: 'https://apps.apple.com/app/mangaale', // Coming soon
 };

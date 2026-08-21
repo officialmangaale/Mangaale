@@ -39,7 +39,7 @@ const PrivacyPolicyPage = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-white">2. How We Use Information</h2>
+              <h2 className="text-[1.35rem] font-extrabold text-mangaale-text">2. How We Use Information</h2>
               <ul className="mt-4 list-disc space-y-3 pl-5 leading-relaxed">
                 <li>To create and manage your account and authenticate users.</li>
                 <li>To register, manage, and verify restaurant profiles.</li>
@@ -55,28 +55,28 @@ const PrivacyPolicyPage = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-white">3. How We Share Information</h2>
+              <h2 className="text-[1.35rem] font-extrabold text-mangaale-text">3. How We Share Information</h2>
               <p className="mt-4 leading-relaxed">
                 We do not sell your personal information. We may share information in the following limited circumstances:
               </p>
               <ul className="mt-4 list-disc space-y-3 pl-5 leading-relaxed">
-                <li><strong className="text-white">Service providers and infrastructure partners</strong> that help us operate the App, such as hosting, storage, notifications, maps or location services, speech recognition, and support tools.</li>
-                <li><strong className="text-white">Technology platforms integrated with the App,</strong> such as Firebase Cloud Messaging for notifications, map or geolocation providers, and device-level speech recognition services.</li>
-                <li><strong className="text-white">Your authorized users or staff</strong> within your restaurant account, based on the access you provide.</li>
-                <li><strong className="text-white">Legal or compliance disclosures</strong> when required by law, regulation, court order, or to protect rights, safety, and the integrity of the service.</li>
-                <li><strong className="text-white">Business transfers</strong> in connection with a merger, acquisition, restructuring, financing, or sale of assets.</li>
+                <li><strong className="font-semibold text-mangaale-text">Service providers and infrastructure partners</strong> that help us operate the App, such as hosting, storage, notifications, maps or location services, speech recognition, and support tools.</li>
+                <li><strong className="font-semibold text-mangaale-text">Technology platforms integrated with the App,</strong> such as Firebase Cloud Messaging for notifications, map or geolocation providers, and device-level speech recognition services.</li>
+                <li><strong className="font-semibold text-mangaale-text">Your authorized users or staff</strong> within your restaurant account, based on the access you provide.</li>
+                <li><strong className="font-semibold text-mangaale-text">Legal or compliance disclosures</strong> when required by law, regulation, court order, or to protect rights, safety, and the integrity of the service.</li>
+                <li><strong className="font-semibold text-mangaale-text">Business transfers</strong> in connection with a merger, acquisition, restructuring, financing, or sale of assets.</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-white">4. Data Retention</h2>
+              <h2 className="text-[1.35rem] font-extrabold text-mangaale-text">4. Data Retention</h2>
               <p className="mt-4 leading-relaxed">
                 We retain information for as long as needed to provide the App, maintain your account, comply with legal and accounting obligations, resolve disputes, and enforce our agreements. Certain business, invoice, tax, or compliance records may be retained for longer where required by law or legitimate business needs.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-white">5. Your Choices</h2>
+              <h2 className="text-[1.35rem] font-extrabold text-mangaale-text">5. Your Choices</h2>
               <ul className="mt-4 list-disc space-y-3 pl-5 leading-relaxed">
                 <li>You can update certain profile, restaurant, menu, and operational information directly within the App.</li>
                 <li>You can disable location, microphone, Bluetooth, camera, or notification permissions through your device settings, but some App features may stop working properly.</li>
@@ -85,28 +85,28 @@ const PrivacyPolicyPage = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-white">6. Security</h2>
+              <h2 className="text-[1.35rem] font-extrabold text-mangaale-text">6. Security</h2>
               <p className="mt-4 leading-relaxed">
                 We use reasonable technical, administrative, and organizational safeguards to protect information. However, no method of electronic storage or transmission is completely secure, and we cannot guarantee absolute security.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-white">7. Children's Privacy</h2>
+              <h2 className="text-[1.35rem] font-extrabold text-mangaale-text">7. Children's Privacy</h2>
               <p className="mt-4 leading-relaxed">
                 The App is intended for business use by restaurant owners and staff and is not directed to children under 13. We do not knowingly collect personal information directly from children under 13 through the App.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-white">8. Changes to This Policy</h2>
+              <h2 className="text-[1.35rem] font-extrabold text-mangaale-text">8. Changes to This Policy</h2>
               <p className="mt-4 leading-relaxed">
                 We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date in this policy. Continued use of the App after an update means the updated policy will apply.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-white">9. Contact Us</h2>
+              <h2 className="text-[1.35rem] font-extrabold text-mangaale-text">9. Contact Us</h2>
               <p className="mb-2 text-mangaale-text leading-relaxed">
                 If you have any questions, privacy requests, or concerns about this Privacy Policy, contact us at <a href="mailto:support@mangaale.com" className="text-mangaale-primary hover:underline font-semibold">support@mangaale.com</a>.
               </p>

@@ -6,7 +6,7 @@
       "releaseDate": "2026-03-16",
       "size": "77 MB",
       "minAndroidVersion": "7.0",
-      "downloadUrl": "/downloads/mangaale/mangaale-v1.0.apk",
+      "downloadUrl": "/downloads/mangaale/app-release.apk",
       "md5": "",
       "sha256": "",
       "releaseNotes": "Initial release of Mangaale app - Order food, scan QR menus, get fast delivery",
@@ -17,7 +17,7 @@
   "latest": {
     "version": "1.0.0",
     "versionCode": 1,
-    "downloadUrl": "/downloads/mangaale/mangaale-latest.apk",
+    "downloadUrl": "/downloads/mangaale/app-release.apk",
     "releaseDate": "2026-03-16",
     "minAndroidVersion": "7.0",
     "size": "77 MB",

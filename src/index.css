@@ -1,26 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --mangaale-primary: #FF7A00;
-  --mangaale-secondary: #FFA133;
-  --mangaale-dark: #1F2937;
-  --mangaale-text: #111827;
-  --mangaale-subtext: #6B7280;
+  /* Mangaale brand tokens */
+  --mangaale-primary: #0CB79D;
+  --mangaale-bright: #10C9AA;
+  --mangaale-deep: #087F70;
+  --mangaale-tint: #F2FBF9;
+  --mangaale-ink: #10212B;
+  --mangaale-muted: #5E6B73;
+  --mangaale-border: #E7EEEC;
   --mangaale-bg: #FFFFFF;
-  --mangaale-bg-soft: #FFF7ED;
+
+  /* legacy aliases kept so nothing that referenced them breaks */
+  --mangaale-secondary: #087F70;
+  --mangaale-dark: #0A1A22;
+  --mangaale-text: #10212B;
+  --mangaale-subtext: #5E6B73;
+  --mangaale-bg-soft: #F2FBF9;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /*
+   * Never allow decorative/3D layers to create a sideways scrollbar.
+   *
+   * `clip` rather than `hidden`: overflow-x:hidden turns the element into a
+   * scroll container, which silently breaks `position: sticky` for every
+   * descendant (this is what stopped the "How Mangaale Works" pane sticking).
+   * `clip` does the same visual job without creating that container.
+   * The `hidden` line is the fallback for browsers without `clip`.
+   */
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
     @apply bg-white text-mangaale-text antialiased;
+    font-feature-settings: 'ss01', 'cv11';
   }
 
   h1,
@@ -28,39 +55,182 @@
   h3,
   h4,
   h5 {
-    @apply font-display font-bold;
+    @apply font-display font-bold tracking-tight;
+  }
+
+  /* Visible, on-brand focus ring for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--mangaale-primary);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: rgba(12, 183, 157, 0.22);
+    color: var(--mangaale-ink);
   }
 }
 
 @layer components {
+  /* ---------- Surfaces ---------- */
   .mangaale-shell {
-    @apply border border-mangaale-primary/10 bg-white rounded-3xl;
-    box-shadow: 0 10px 30px -10px rgba(255, 122, 0, 0.1);
+    @apply rounded-3xl border border-mangaale-border bg-white;
+    box-shadow: 0 1px 2px rgba(16, 33, 43, 0.04), 0 18px 40px -24px rgba(16, 33, 43, 0.16);
   }
 
   .mangaale-card {
-    @apply rounded-2xl border border-mangaale-primary/10 bg-white;
-    box-shadow: 0 4px 12px -4px rgba(255, 122, 0, 0.08);
+    @apply rounded-2xl border border-mangaale-border bg-white;
+    box-shadow: 0 1px 2px rgba(16, 33, 43, 0.04), 0 12px 32px -20px rgba(16, 33, 43, 0.16);
   }
 
+  .m-glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+  }
+
+  /* ---------- Buttons ---------- */
   .mangaale-button {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold tracking-wide transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-[0.95rem] font-semibold tracking-tight;
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 200ms ease, border-color 200ms ease, color 200ms ease;
   }
 
   .mangaale-button-primary {
-    @apply mangaale-button text-white bg-gradient-to-r from-mangaale-primary to-mangaale-secondary hover:shadow-lg;
-    box-shadow: 0 8px 20px -8px rgba(255, 122, 0, 0.3);
+    @apply mangaale-button bg-mangaale-primary text-white;
+    box-shadow: 0 1px 2px rgba(8, 127, 112, 0.2), 0 10px 24px -10px rgba(12, 183, 157, 0.55);
+  }
+
+  .mangaale-button-primary:hover {
+    @apply -translate-y-0.5 bg-mangaale-bright;
+    box-shadow: 0 2px 4px rgba(8, 127, 112, 0.18), 0 18px 34px -12px rgba(12, 183, 157, 0.6);
+  }
+
+  .mangaale-button-primary:active {
+    @apply translate-y-0;
   }
 
   .mangaale-button-secondary {
-    @apply mangaale-button border-2 border-mangaale-primary text-mangaale-primary hover:bg-mangaale-bg-soft;
+    @apply mangaale-button border border-mangaale-primary/35 bg-white text-mangaale-primary;
+    box-shadow: 0 1px 2px rgba(16, 33, 43, 0.04);
   }
 
+  .mangaale-button-secondary:hover {
+    @apply -translate-y-0.5 border-mangaale-primary bg-mangaale-tint;
+    box-shadow: 0 12px 26px -14px rgba(12, 183, 157, 0.5);
+  }
+
+  .mangaale-button-ghost {
+    @apply mangaale-button text-mangaale-text;
+  }
+
+  .mangaale-button-ghost:hover {
+    @apply bg-mangaale-tint text-mangaale-primary;
+  }
+
+  /* Arrow nudge shared by CTAs */
+  .btn-arrow {
+    transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .group:hover .btn-arrow,
+  .mangaale-button:hover .btn-arrow {
+    transform: translateX(5px);
+  }
+
+  /* ---------- Typography helpers ---------- */
   .section-title {
-    @apply text-4xl md:text-5xl font-extrabold tracking-tight text-mangaale-text;
+    @apply text-3xl font-extrabold tracking-tight text-mangaale-text sm:text-4xl lg:text-5xl;
+    line-height: 1.08;
   }
 
   .section-eyebrow {
-    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-[0.08em] text-mangaale-primary border border-mangaale-primary/30 bg-mangaale-primary/6;
+    @apply inline-flex items-center gap-2 rounded-full border border-mangaale-primary/20 bg-mangaale-tint px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-mangaale-primary;
+  }
+
+  .text-gradient-brand {
+    background: linear-gradient(100deg, #087F70 0%, #0CB79D 35%, #10C9AA 55%, #0CB79D 75%, #087F70 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-pan 9s ease-in-out infinite;
+  }
+
+  /* ---------- Layout ---------- */
+  .m-container {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .m-section {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 3D helpers used by the hero / ecosystem / tilt cards */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .perspective-1400 {
+    perspective: 1400px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  /* Edge fade for marquees */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .snap-x-mandatory {
+    scroll-snap-type: x mandatory;
+  }
+
+  .snap-start-always {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+/* =========================================================
+   Reduced motion
+   Kill decorative motion, keep every bit of functionality.
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .text-gradient-brand {
+    animation: none;
+    background-position: 30% 50%;
   }
 }

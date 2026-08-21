@@ -1,94 +1,149 @@
 import { Link } from 'react-router-dom'
-import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone, MapPin } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from 'lucide-react'
 import { contactData } from '../../data/contactData'
 
-const Footer = () => {
-  const navLinks = [
-    { label: 'Home', to: '/' },
-    { label: 'For Restaurants', to: '/for-restaurants' },
-    { label: 'For Customers', to: '/for-customers' },
-    { label: 'For Riders', to: '/for-riders' },
-    { label: 'About', to: '/about' },
-    { label: 'Contact', to: '/contact' }
-  ]
+/**
+ * Dark footer.
+ *
+ * Fixes carried over from the previous version:
+ *  - column headings were `text-white` on a white background (invisible)
+ *  - the copyright line contained a corrupted replacement character
+ *  - "Terms & Conditions" pointed at a route that did not exist
+ */
 
-  const legalLinks = [
-    { label: 'Privacy Policy', to: '/privacy-policy' },
-    { label: 'Terms & Conditions', to: '/terms' }
-  ]
+const COLUMNS = [
+  {
+    title: 'Company',
+    links: [
+      { label: 'About', to: '/about' },
+      { label: 'Contact', to: '/contact' },
+      { label: 'Privacy Policy', to: '/privacy-policy' }
+    ]
+  },
+  {
+    title: 'Customers',
+    links: [
+      { label: 'Order Food', to: '/for-customers' },
+      { label: 'Download App', to: '/download' },
+      { label: 'Offers', to: '/for-customers' }
+    ]
+  },
+  {
+    title: 'Partners',
+    links: [
+      { label: 'Restaurant Partner', to: '/for-restaurants' },
+      { label: 'Rider Partner', to: '/for-riders' },
+      { label: 'Book Demo', to: '/contact' }
+    ]
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy Policy', to: '/privacy-policy' },
+      { label: 'Terms & Conditions', to: '/terms' },
+      { label: 'Account Deletion', to: '/account-deletion' }
+    ]
+  }
+]
 
-  return (
-    <footer className="border-t border-mangaale-primary/10 bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-mangaale-primary/70 bg-mangaale-primary/10 text-mangaale-primary font-display font-bold">
-                M
-              </span>
-              <span className="font-display text-xl font-bold">Mangaale</span>
-            </div>
-            <p className="max-w-sm text-sm text-mangaale-subtext">
-              Unified software for billing, inventory, kitchen operations, QR ordering, and delivery.
-            </p>
-            <div className="flex gap-3 pt-2 text-mangaale-subtext">
-              <a href="#" aria-label="Instagram" className="hover:text-mangaale-primary"><Instagram size={18} /></a>
-              <a href="#" aria-label="Facebook" className="hover:text-mangaale-primary"><Facebook size={18} /></a>
-              <a href="#" aria-label="LinkedIn" className="hover:text-mangaale-primary"><Linkedin size={18} /></a>
-              <a href="#" aria-label="Twitter" className="hover:text-mangaale-primary"><Twitter size={18} /></a>
-            </div>
+const SOCIALS = [
+  { label: 'Instagram', Icon: Instagram, href: 'https://instagram.com/mangaale' },
+  { label: 'Facebook', Icon: Facebook, href: 'https://facebook.com/mangaale' },
+  { label: 'LinkedIn', Icon: Linkedin, href: 'https://linkedin.com/company/mangaale' },
+  { label: 'Twitter', Icon: Twitter, href: 'https://twitter.com/mangaale' }
+]
+
+const Footer = () => (
+  <footer className="relative w-full overflow-hidden bg-mangaale-navy text-white">
+    {/* subtle turquoise wash */}
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute -left-40 -top-40 h-[420px] w-[420px] rounded-full bg-mangaale-primary/15 blur-[120px]"
+    />
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute -bottom-32 right-0 h-[360px] w-[360px] rounded-full bg-mangaale-primary/10 blur-[110px]"
+    />
+
+    <div className="m-container relative py-16 lg:py-20">
+      <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-6 lg:gap-8">
+        {/* brand */}
+        <div className="lg:col-span-2">
+          <Link to="/" className="inline-flex items-center gap-2.5" aria-label="Mangaale home">
+            <span className="flex h-9 w-9 items-center justify-center rounded-[0.7rem] bg-gradient-to-br from-mangaale-bright to-mangaale-secondary">
+              <span className="text-[17px] font-extrabold leading-none text-white">M</span>
+            </span>
+            <span className="text-[1.35rem] font-extrabold tracking-tight text-white">Mangaale</span>
+          </Link>
+
+          <p className="mt-4 max-w-xs text-[0.92rem] leading-relaxed text-white/60">
+            Connecting local restaurants, customers and riders through one seamless delivery
+            ecosystem.
+          </p>
+
+          <div className="mt-6 flex gap-2.5">
+            {SOCIALS.map(({ label, Icon, href }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/12 bg-white/5 text-white/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-mangaale-primary/50 hover:bg-mangaale-primary/15 hover:text-mangaale-bright"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
           </div>
+        </div>
 
-          <div>
-            <h4 className="mb-4 font-semibold text-white">Quick Links</h4>
-            <ul className="grid gap-2 text-sm">
-              {navLinks.map((item) => (
-                <li key={item.label}>
-                  <Link to={item.to} className="text-mangaale-subtext transition-colors hover:text-mangaale-primary">
-                    {item.label}
+        {/* link columns */}
+        {COLUMNS.map((column) => (
+          <div key={column.title}>
+            <h4 className="text-[0.82rem] font-bold uppercase tracking-[0.12em] text-white">
+              {column.title}
+            </h4>
+            <ul className="mt-4 space-y-2.5">
+              {column.links.map((link) => (
+                <li key={`${column.title}-${link.label}`}>
+                  <Link
+                    to={link.to}
+                    className="text-[0.9rem] text-white/60 transition-colors hover:text-mangaale-bright"
+                  >
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-
-          <div>
-            <h4 className="mb-4 font-semibold text-white">Legal</h4>
-            <ul className="grid gap-2 text-sm">
-              {legalLinks.map((item) => (
-                <li key={item.label}>
-                  <Link to={item.to} className="text-mangaale-subtext transition-colors hover:text-mangaale-primary">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="space-y-3 text-sm">
-            <h4 className="font-semibold text-white">Contact</h4>
-            <p className="flex items-start gap-2 text-mangaale-subtext">
-              <Mail size={16} className="mt-1" />
-              {contactData.email}
-            </p>
-            <p className="flex items-start gap-2 text-mangaale-subtext">
-              <Phone size={16} className="mt-1" />
-              {contactData.phones.join(' / ')}
-            </p>
-            <p className="flex items-start gap-2 text-mangaale-subtext">
-              <MapPin size={16} className="mt-1" />
-              {contactData.office}
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-10 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-mangaale-subtext">
-          <p>� Mangaale. All rights reserved.</p>
-          <p>Built for modern food operations</p>
-        </div>
+        ))}
       </div>
-    </footer>
-  )
-}
+
+      {/* contact strip */}
+      <div className="mt-12 grid gap-4 border-t border-white/10 pt-8 sm:grid-cols-3">
+        <a
+          href={`mailto:${contactData.email}`}
+          className="flex items-center gap-2.5 text-[0.9rem] text-white/60 transition-colors hover:text-mangaale-bright"
+        >
+          <Mail className="h-4 w-4 shrink-0 text-mangaale-primary" />
+          {contactData.email}
+        </a>
+        <p className="flex items-center gap-2.5 text-[0.9rem] text-white/60">
+          <Phone className="h-4 w-4 shrink-0 text-mangaale-primary" />
+          {contactData.phones.join(' / ')}
+        </p>
+        <p className="flex items-center gap-2.5 text-[0.9rem] text-white/60">
+          <MapPin className="h-4 w-4 shrink-0 text-mangaale-primary" />
+          {contactData.office}
+        </p>
+      </div>
+
+      <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-[0.82rem] text-white/45 sm:flex-row">
+        <p>© {new Date().getFullYear()} Mangaale. All rights reserved.</p>
+        <p>Built for modern food operations</p>
+      </div>
+    </div>
+  </footer>
+)
 
 export default Footer
