@@ -1,40 +1,48 @@
 import { Link } from 'react-router-dom'
 import {
-  CreditCard, Boxes, ChefHat, Truck, ShoppingBag,
-  QrCode, Menu, LayoutDashboard, BarChart3, ArrowRight
+  CreditCard,
+  Boxes,
+  ChefHat,
+  Truck,
+  ShoppingBag,
+  QrCode,
+  Menu,
+  LayoutDashboard,
+  BarChart3
 } from 'lucide-react'
 
-const iconMap = { CreditCard, Boxes, ChefHat, Truck, ShoppingBag, QrCode, Menu, LayoutDashboard, BarChart3 }
+const iconMap = {
+  CreditCard,
+  Boxes,
+  ChefHat,
+  Truck,
+  ShoppingBag,
+  QrCode,
+  Menu,
+  LayoutDashboard,
+  BarChart3
+}
 
 const ServiceCard = ({ service, compact = false }) => {
   const Icon = iconMap[service.icon] || CreditCard
 
   return (
-    <article className={`mangaale-card-hover p-6 ${compact ? 'h-full flex flex-col' : ''}`}>
+    <article className={`mangaale-card p-6 transition-transform duration-300 hover:-translate-y-1 ${
+      compact ? 'h-full' : ''
+    }`}>
       <div className="flex items-start justify-between gap-3">
-        <div className="mangaale-icon-box w-11 h-11 rounded-xl">
-          <Icon size={20} />
+        <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-mangaale-accent/25 bg-mangaale-accent/10 text-mangaale-accent">
+          <Icon size={22} />
         </div>
-<<<<<<< HEAD
         <span className="rounded-full border border-mangaale-border px-2 py-1 text-xs text-mangaale-subtext">{service.tag}</span>
       </div>
       <h3 className="mt-5 text-xl font-semibold text-mangaale-text">{service.title}</h3>
       <p className="mt-3 text-sm text-mangaale-subtext">{service.summary}</p>
       <p className="mt-4 text-sm leading-relaxed">{service.description}</p>
       <ul className="mt-5 space-y-2">
-=======
-        <span className="rounded-full border border-mangaale-primary/20 bg-mangaale-primary/5 px-2.5 py-1 text-xs text-mangaale-primary font-medium">
-          {service.tag}
-        </span>
-      </div>
-      <h3 className="mt-5 text-lg font-semibold text-mangaale-text">{service.title}</h3>
-      <p className="mt-2 text-sm text-mangaale-subtext">{service.summary}</p>
-      <p className="mt-3 text-sm text-mangaale-text leading-relaxed">{service.description}</p>
-      <ul className="mt-4 space-y-2 flex-grow">
->>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
         {service.features.map((item) => (
           <li key={item} className="flex items-start gap-2 text-sm text-mangaale-subtext">
-            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-mangaale-primary flex-shrink-0" />
+            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-mangaale-accent" />
             <span>{item}</span>
           </li>
         ))}
@@ -43,14 +51,10 @@ const ServiceCard = ({ service, compact = false }) => {
       {compact && (
         <Link
           to="/services"
-          className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-mangaale-primary hover:gap-2.5 transition-all group"
+          className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-mangaale-accent transition-all hover:gap-2"
         >
           Learn more
-<<<<<<< HEAD
           <span aria-hidden="true">→</span>
-=======
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
->>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
         </Link>
       )}
     </article>

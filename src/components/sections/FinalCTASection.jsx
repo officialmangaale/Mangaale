@@ -12,7 +12,6 @@ const FinalCTASection = () => {
   const { reduced } = useMotionPrefs()
 
   return (
-<<<<<<< HEAD
     <section className="w-full px-5 pb-16 pt-4 sm:px-6 lg:px-8 lg:pb-24">
       <Reveal className="mx-auto max-w-7xl">
         <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-mangaale-primary via-mangaale-secondary to-mangaale-deep px-6 py-14 text-center sm:px-10 sm:py-16 lg:rounded-[2.5rem] lg:py-24">
@@ -89,44 +88,6 @@ const FinalCTASection = () => {
           </div>
         </div>
       </Reveal>
-=======
-    <section className="w-full">
-      <div className="mangaale-container mangaale-section">
-        <div className="mangaale-cta-banner">
-          {/* Decorative */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-br from-white to-transparent" />
-          </div>
-
-          <div className="relative z-10">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                {finalCTA.title}
-              </h2>
-              <p className="text-lg text-white/85 mb-8 leading-relaxed">
-                {finalCTA.subtitle}
-              </p>
-
-              {/* Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3.5 justify-center">
-                <button className="mangaale-button bg-white text-mangaale-primary hover:shadow-lg hover:-translate-y-0.5 px-8 py-3.5 group">
-                  {finalCTA.cta1}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button className="mangaale-button border-2 border-white text-white hover:bg-white/10 px-8 py-3.5">
-                  {finalCTA.cta2}
-                </button>
-              </div>
-
-              {/* Trust message */}
-              <p className="mt-8 text-white/70 text-sm font-medium">
-                💬 Join 150+ restaurants transforming their operations with Mangaale
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
->>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
     </section>
   )
 }

@@ -1,6 +1,5 @@
 import { Star } from 'lucide-react'
 
-<<<<<<< HEAD
 /**
  * Fixes: the quote marks and the star rating were corrupted characters
  * (rendering as "?" and the replacement glyph). Now uses proper typographic
@@ -16,22 +15,6 @@ const TestimonialCard = ({ testimonial }) => (
       <div className="min-w-0">
         <p className="truncate font-bold text-mangaale-text">{testimonial.name}</p>
         <p className="truncate text-[0.88rem] text-mangaale-subtext">{testimonial.role}</p>
-=======
-const TestimonialCard = ({ testimonial }) => {
-  return (
-    <article className="mangaale-card-hover p-6">
-      <p className="text-base text-mangaale-text leading-relaxed italic">"{testimonial.quote}"</p>
-      <div className="mt-5 flex items-center justify-between">
-        <div>
-          <p className="font-semibold text-mangaale-text text-[15px]">{testimonial.name}</p>
-          <p className="text-sm text-mangaale-subtext">{testimonial.role}</p>
-        </div>
-        <div className="flex gap-0.5">
-          {Array.from({ length: testimonial.rating }).map((_, i) => (
-            <Star key={i} className="w-4 h-4 text-mangaale-secondary fill-mangaale-secondary" />
-          ))}
-        </div>
->>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
       </div>
       <span
         className="flex shrink-0 items-center gap-0.5"

@@ -38,17 +38,11 @@ export const appInfo = {
   ]
 };
 
-// APK download URL is now fetched dynamically from the API via useApkDownload hook
-// API endpoint: https://user-prod.mangaale.com/app/latest
 export const downloadLinks = {
-<<<<<<< HEAD
   // Points at the APK that actually exists in public/downloads/mangaale/.
   // The previous value ('mangaale-latest.apk') had no matching file, so every
   // download button returned 404. Update both together when shipping a new build.
   apk: '/downloads/mangaale/app-release.apk',
-=======
-  apkApi: 'https://user-prod.mangaale.com/app/latest',
->>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
   playStore: 'https://play.google.com/store/apps/details?id=com.mangaale.app', // Coming soon
   appStore: 'https://apps.apple.com/app/mangaale', // Coming soon
 };

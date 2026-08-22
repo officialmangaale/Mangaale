@@ -26,7 +26,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-<<<<<<< HEAD
     -webkit-text-size-adjust: 100%;
   }
 
@@ -69,32 +68,11 @@
   ::selection {
     background: rgba(12, 183, 157, 0.22);
     color: var(--mangaale-ink);
-=======
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  body {
-    @apply bg-white text-mangaale-text antialiased font-sans;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  }
-
-  h1, h2, h3, h4, h5 {
-    @apply font-display font-extrabold tracking-tight;
-  }
-
-  p {
-    @apply leading-relaxed;
->>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
   }
 }
 
 @layer components {
-<<<<<<< HEAD
   /* ---------- Surfaces ---------- */
-=======
-  /* ── Shell & Card ── */
->>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
   .mangaale-shell {
     @apply rounded-3xl border border-mangaale-border bg-white;
     box-shadow: 0 1px 2px rgba(16, 33, 43, 0.04), 0 18px 40px -24px rgba(16, 33, 43, 0.16);
@@ -105,7 +83,6 @@
     box-shadow: 0 1px 2px rgba(16, 33, 43, 0.04), 0 12px 32px -20px rgba(16, 33, 43, 0.16);
   }
 
-<<<<<<< HEAD
   .m-glass {
     background: rgba(255, 255, 255, 0.72);
     backdrop-filter: blur(18px) saturate(160%);
@@ -132,20 +109,6 @@
 
   .mangaale-button-primary:active {
     @apply translate-y-0;
-=======
-  .mangaale-card-hover {
-    @apply mangaale-card hover:-translate-y-1 hover:shadow-lg hover:border-mangaale-primary/25 transition-all duration-300;
-  }
-
-  /* ── Buttons ── */
-  .mangaale-button {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold tracking-wide transition-all duration-300 text-[15px];
-  }
-
-  .mangaale-button-primary {
-    @apply mangaale-button text-white bg-gradient-to-r from-mangaale-primary to-mangaale-secondary hover:shadow-lg hover:-translate-y-0.5;
-    box-shadow: 0 8px 20px -8px rgba(255, 122, 0, 0.35);
->>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
   }
 
   .mangaale-button-secondary {
@@ -153,7 +116,6 @@
     box-shadow: 0 1px 2px rgba(16, 33, 43, 0.04);
   }
 
-<<<<<<< HEAD
   .mangaale-button-secondary:hover {
     @apply -translate-y-0.5 border-mangaale-primary bg-mangaale-tint;
     box-shadow: 0 12px 26px -14px rgba(12, 183, 157, 0.5);
@@ -270,70 +232,5 @@
   .text-gradient-brand {
     animation: none;
     background-position: 30% 50%;
-=======
-  .mangaale-button-white {
-    @apply mangaale-button bg-white text-mangaale-primary hover:shadow-lg hover:-translate-y-0.5;
-  }
-
-  /* ── Section Typography ── */
-  .section-title {
-    @apply font-display text-3xl sm:text-4xl md:text-[2.75rem] font-extrabold tracking-tight text-mangaale-text leading-tight;
-  }
-
-  .section-subtitle {
-    @apply text-mangaale-subtext text-base md:text-lg leading-relaxed max-w-2xl mx-auto;
-  }
-
-  .section-eyebrow {
-    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-[0.08em] uppercase text-mangaale-primary border border-mangaale-primary/30 bg-mangaale-primary/6;
-  }
-
-  /* ── Section Spacing ── */
-  .mangaale-section {
-    @apply py-16 md:py-20 lg:py-24;
-  }
-
-  .mangaale-container {
-    @apply max-w-7xl mx-auto px-5 sm:px-6 lg:px-8;
-  }
-
-  /* ── Icon Box ── */
-  .mangaale-icon-box {
-    @apply w-12 h-12 rounded-xl bg-gradient-to-br from-mangaale-primary to-mangaale-secondary flex items-center justify-center text-white flex-shrink-0;
-  }
-
-  .mangaale-icon-box-soft {
-    @apply w-11 h-11 rounded-xl bg-mangaale-primary/8 flex items-center justify-center flex-shrink-0;
-  }
-
-  /* ── Form Inputs ── */
-  .mangaale-input {
-    @apply w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-mangaale-text text-[15px] placeholder:text-gray-400 transition-all duration-200;
-    @apply focus:outline-none focus:ring-2 focus:ring-mangaale-primary/20 focus:border-mangaale-primary;
-  }
-
-  .mangaale-label {
-    @apply block text-mangaale-text text-sm font-semibold mb-2;
-  }
-
-  /* ── CTA Banner ── */
-  .mangaale-cta-banner {
-    @apply relative overflow-hidden bg-gradient-to-r from-mangaale-primary via-mangaale-primary to-mangaale-secondary rounded-2xl md:rounded-3xl p-8 md:p-12 lg:p-16 text-white text-center;
-  }
-
-  /* ── Step Number ── */
-  .mangaale-step-number {
-    @apply w-12 h-12 rounded-2xl bg-gradient-to-br from-mangaale-primary to-mangaale-secondary text-white flex items-center justify-center font-display font-extrabold text-lg flex-shrink-0;
-    box-shadow: 0 6px 20px -4px rgba(255, 122, 0, 0.35);
-  }
-
-  /* ── Check Item ── */
-  .mangaale-check-item {
-    @apply flex items-start gap-3;
-  }
-
-  .mangaale-check-dot {
-    @apply w-5 h-5 rounded-full bg-mangaale-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5;
->>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
   }
 }
