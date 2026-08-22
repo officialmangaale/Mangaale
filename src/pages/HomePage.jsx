@@ -18,7 +18,11 @@ const HomePage = () => {
   )
 
   return (
+<<<<<<< HEAD
     <div className="w-full">
+=======
+    <div className="w-full pt-[72px]">
+>>>>>>> 3b73117bee929acfc2bb7bc935ae8e312bf19cf6
       <HeroSection />
       <StatsSection />
       <HowItWorksSection />
