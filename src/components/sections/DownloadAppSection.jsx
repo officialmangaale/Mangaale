@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Apple, CheckCircle2, Clock, Download, Headphones, ShieldCheck, Smartphone, Zap } from 'lucide-react'
 import Reveal from '../motion/Reveal'
+import ScrollDepth from '../motion/ScrollDepth'
 import MagneticButton from '../motion/MagneticButton'
 import PhoneFrame from '../visuals/PhoneFrame'
 import { HomeScreen } from '../visuals/AppScreens'
@@ -38,7 +39,7 @@ const DownloadAppSection = () => {
           className="pointer-events-none absolute -right-32 top-0 h-[460px] w-[460px] rounded-full bg-mangaale-primary/12 blur-[120px]"
         />
 
-        <div className="m-container relative">
+        <ScrollDepth className="m-container relative">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             {/* copy */}
             <Reveal className="order-2 lg:order-1">
@@ -164,7 +165,7 @@ const DownloadAppSection = () => {
               ))}
             </div>
           </div>
-        </div>
+        </ScrollDepth>
       </section>
 
       <InstallationInstructionsPopup

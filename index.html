@@ -9,6 +9,22 @@
     />
     <title>Mangaale | Restaurant Technology & Food Commerce Platform</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!--
+      Fonts are linked here rather than @import-ed from index.css.
+
+      An @import inside the stylesheet serialises the requests
+      (html -> index.css -> fonts.googleapis.com css -> woff2 files), so the
+      typeface could not even start downloading until the whole app stylesheet
+      had arrived and parsed. Linking here lets the preconnects warm the TLS
+      handshake and the font CSS download in parallel with the app CSS.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+    />
   </head>
   <body class="bg-mangaale-bg text-mangaale-text">
     <div id="root"></div>

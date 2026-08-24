@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Clock, Heart, Star } from 'lucide-react'
 import Reveal from '../motion/Reveal'
+import ScrollDepth from '../motion/ScrollDepth'
 import { popularRestaurants } from '../../data/restaurantShowcaseData'
+import useMotionPrefs from '../../hooks/useMotionPrefs'
 
 /**
  * Popular restaurants.
@@ -9,6 +11,12 @@ import { popularRestaurants } from '../../data/restaurantShowcaseData'
  * Desktop : 4-up grid.
  * Mobile  : horizontal snap carousel with the next card peeking, so the swipe
  *           affordance is obvious without any JS carousel library.
+ *
+ * PERFORMANCE: the carousel and the grid were `md:hidden` / `hidden md:block`,
+ * so every visitor rendered all nine cards twice — eighteen card subtrees in
+ * the DOM, each with its own useState, gradient plate and hover transitions,
+ * half of them permanently invisible. Only the matching layout is mounted now;
+ * both look exactly as before.
  */
 
 const RestaurantCard = ({ item }) => {
@@ -71,47 +79,59 @@ const RestaurantCard = ({ item }) => {
   )
 }
 
-const PopularRestaurantsSection = () => (
-  <section className="m-section w-full overflow-hidden bg-mangaale-tint/50">
-    <div className="m-container">
-      <Reveal className="mx-auto max-w-2xl text-center">
-        <p className="section-eyebrow">Popular near you</p>
-        <h2 className="section-title mt-5">
-          Discover What&apos;s <span className="text-gradient-brand">Popular</span> Near You
-        </h2>
-        <p className="mx-auto mt-4 max-w-xl text-[1rem] leading-relaxed text-mangaale-subtext sm:text-[1.08rem]">
-          A taste of the local kitchens already serving customers through Mangaale.
-        </p>
-      </Reveal>
+/* mobile: peeking snap carousel */
+const CardCarousel = () => (
+  <Reveal delay={0.1} className="mt-10">
+    <div className="scrollbar-none snap-x-mandatory flex gap-4 overflow-x-auto px-5 pb-2">
+      {popularRestaurants.map((item) => (
+        <div key={item.name} className="snap-start-always w-[78vw] max-w-[300px] shrink-0">
+          <RestaurantCard item={item} />
+        </div>
+      ))}
+      {/* trailing spacer so the last card can settle flush */}
+      <div className="w-1 shrink-0" aria-hidden="true" />
     </div>
-
-    {/* mobile: peeking snap carousel */}
-    <Reveal delay={0.1} className="mt-10 md:hidden">
-      <div className="scrollbar-none snap-x-mandatory flex gap-4 overflow-x-auto px-5 pb-2">
-        {popularRestaurants.map((item) => (
-          <div key={item.name} className="snap-start-always w-[78vw] max-w-[300px] shrink-0">
-            <RestaurantCard item={item} />
-          </div>
-        ))}
-        {/* trailing spacer so the last card can settle flush */}
-        <div className="w-1 shrink-0" aria-hidden="true" />
-      </div>
-      <p className="mt-3 px-5 text-center text-[0.78rem] font-medium text-mangaale-subtext">
-        Swipe to explore more →
-      </p>
-    </Reveal>
-
-    {/* tablet + desktop: grid */}
-    <div className="m-container hidden md:block">
-      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:mt-16 lg:grid-cols-4">
-        {popularRestaurants.map((item, i) => (
-          <Reveal key={item.name} delay={i * 0.07}>
-            <RestaurantCard item={item} />
-          </Reveal>
-        ))}
-      </div>
-    </div>
-  </section>
+    <p className="mt-3 px-5 text-center text-[0.78rem] font-medium text-mangaale-subtext">
+      Swipe to explore more →
+    </p>
+  </Reveal>
 )
+
+/* tablet + desktop: grid */
+const CardGrid = () => (
+  <ScrollDepth className="m-container">
+    <div className="mt-12 grid gap-5 md:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+      {popularRestaurants.map((item, i) => (
+        <Reveal key={item.name} delay={i * 0.07}>
+          <RestaurantCard item={item} />
+        </Reveal>
+      ))}
+    </div>
+  </ScrollDepth>
+)
+
+const PopularRestaurantsSection = () => {
+  // `md` — the same breakpoint the grid used before, so tablets still get the
+  // two-column grid rather than the carousel.
+  const { isMediumViewport } = useMotionPrefs()
+
+  return (
+    <section className="m-section w-full overflow-hidden bg-mangaale-tint/50">
+      <ScrollDepth className="m-container">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className="section-eyebrow">Popular near you</p>
+          <h2 className="section-title mt-5">
+            Discover What&apos;s <span className="text-gradient-brand">Popular</span> Near You
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-[1rem] leading-relaxed text-mangaale-subtext sm:text-[1.08rem]">
+            A taste of the local kitchens already serving customers through Mangaale.
+          </p>
+        </Reveal>
+      </ScrollDepth>
+
+      {isMediumViewport ? <CardGrid /> : <CardCarousel />}
+    </section>
+  )
+}
 
 export default PopularRestaurantsSection

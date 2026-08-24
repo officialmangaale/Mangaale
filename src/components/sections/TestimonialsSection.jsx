@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+import { useInView } from 'framer-motion'
 import { Quote, Star } from 'lucide-react'
 import Reveal from '../motion/Reveal'
 import { homeTestimonials, partnerLogos } from '../../data/restaurantShowcaseData'
@@ -10,6 +12,11 @@ import useMotionPrefs from '../../hooks/useMotionPrefs'
  * The marquee duplicates its track and translates -50%, so the loop is
  * seamless. Under reduced motion it falls back to a plain scrollable row —
  * all content stays reachable either way.
+ *
+ * Both marquees are paused while the section is off screen, reusing the same
+ * `animation-play-state` mechanism the hover-to-pause already uses. Two
+ * duplicated tracks of cards animating for the entire session is work nobody
+ * was watching.
  */
 
 const TestimonialCard = ({ item }) => (
@@ -43,9 +50,12 @@ const TestimonialCard = ({ item }) => (
 
 const TestimonialsSection = () => {
   const { reduced } = useMotionPrefs()
+  const sectionRef = useRef(null)
+  const inView = useInView(sectionRef, { amount: 'some' })
+  const runState = inView ? '' : '[animation-play-state:paused]'
 
   return (
-    <section className="m-section w-full overflow-hidden bg-white">
+    <section ref={sectionRef} className="m-section w-full overflow-hidden bg-white">
       <div className="m-container">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="section-eyebrow">Testimonials</p>
@@ -69,7 +79,9 @@ const TestimonialsSection = () => {
           </div>
         ) : (
           <div className="group mask-fade-x relative flex overflow-hidden">
-            <div className="flex shrink-0 animate-marquee gap-5 pr-5 group-hover:[animation-play-state:paused]">
+            <div
+              className={`flex shrink-0 animate-marquee gap-5 pr-5 group-hover:[animation-play-state:paused] ${runState}`}
+            >
               {homeTestimonials.map((item) => (
                 <TestimonialCard key={item.name} item={item} />
               ))}
@@ -77,7 +89,7 @@ const TestimonialsSection = () => {
             {/* duplicate track for the seamless loop */}
             <div
               aria-hidden="true"
-              className="flex shrink-0 animate-marquee gap-5 pr-5 group-hover:[animation-play-state:paused]"
+              className={`flex shrink-0 animate-marquee gap-5 pr-5 group-hover:[animation-play-state:paused] ${runState}`}
             >
               {homeTestimonials.map((item) => (
                 <TestimonialCard key={`${item.name}-dup`} item={item} />
@@ -111,7 +123,7 @@ const TestimonialsSection = () => {
               <div
                 key={track}
                 aria-hidden={track === 1}
-                className="flex shrink-0 animate-marquee-slow items-center gap-12 pr-12 group-hover:[animation-play-state:paused]"
+                className={`flex shrink-0 animate-marquee-slow items-center gap-12 pr-12 group-hover:[animation-play-state:paused] ${runState}`}
               >
                 {partnerLogos.map((logo) => (
                   <span

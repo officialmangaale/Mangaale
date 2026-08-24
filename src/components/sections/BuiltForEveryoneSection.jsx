@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Bike, Store, Users } from 'lucide-react'
 import Reveal from '../motion/Reveal'
+import ScrollDepth from '../motion/ScrollDepth'
 import TiltCard from '../motion/TiltCard'
 
 /**
@@ -33,7 +34,7 @@ const CARDS = [
 
 const BuiltForEveryoneSection = () => (
   <section className="m-section w-full bg-white">
-    <div className="m-container">
+    <ScrollDepth className="m-container">
       <Reveal className="mx-auto max-w-2xl text-center">
         <p className="section-eyebrow">Built for everyone</p>
         <h2 className="section-title mt-5">
@@ -72,7 +73,7 @@ const BuiltForEveryoneSection = () => (
           </Reveal>
         ))}
       </div>
-    </div>
+    </ScrollDepth>
   </section>
 )
 

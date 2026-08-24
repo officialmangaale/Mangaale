@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, BellRing, Check, TrendingUp } from 'lucide-react'
 import Reveal from '../motion/Reveal'
+import ScrollDepth from '../motion/ScrollDepth'
 import Counter from '../motion/Counter'
 import MagneticButton from '../motion/MagneticButton'
 import useMotionPrefs from '../../hooks/useMotionPrefs'
@@ -139,7 +140,7 @@ const DashboardMock = () => {
 
 const RestaurantSection = () => (
   <section className="m-section relative w-full overflow-hidden bg-white">
-    <div className="m-container">
+    <ScrollDepth className="m-container">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* copy */}
         <Reveal>
@@ -190,7 +191,7 @@ const RestaurantSection = () => (
           <DashboardMock />
         </Reveal>
       </div>
-    </div>
+    </ScrollDepth>
   </section>
 )
 

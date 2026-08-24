@@ -1,6 +1,7 @@
 import { Package, ShieldCheck, Store, Users } from 'lucide-react'
 import Reveal from '../motion/Reveal'
 import Counter from '../motion/Counter'
+import ScrollDepth from '../motion/ScrollDepth'
 
 /**
  * Floating stats bar that overlaps the hero.
@@ -15,7 +16,7 @@ const STATS = [
 
 const StatsSection = () => (
   <section className="relative z-20 -mt-8 w-full sm:-mt-12 lg:-mt-16">
-    <div className="m-container">
+    <ScrollDepth className="m-container">
       <Reveal className="rounded-3xl border border-mangaale-border bg-white/90 p-5 shadow-lift backdrop-blur-xl sm:p-7 lg:px-10 lg:py-8">
         <div className="grid grid-cols-2 gap-x-4 gap-y-7 md:grid-cols-4 md:gap-x-2">
           {STATS.map(({ value, suffix, label, Icon }, i) => (
@@ -40,7 +41,7 @@ const StatsSection = () => (
           ))}
         </div>
       </Reveal>
-    </div>
+    </ScrollDepth>
   </section>
 )
 

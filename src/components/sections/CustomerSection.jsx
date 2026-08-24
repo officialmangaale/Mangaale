@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Compass, MapPinned, Percent, Search, ShoppingBag, Truck } from 'lucide-react'
 import Reveal from '../motion/Reveal'
+import ScrollDepth from '../motion/ScrollDepth'
 import PhoneFrame from '../visuals/PhoneFrame'
 import { HomeScreen, CartScreen, TrackingScreen } from '../visuals/AppScreens'
 import { downloadLinks } from '../../data/appData'
@@ -78,7 +79,7 @@ const CustomerSection = () => {
         className="pointer-events-none absolute -left-32 top-1/4 h-[500px] w-[500px] rounded-full bg-mangaale-primary/10 blur-[120px]"
       />
 
-      <div className="m-container relative">
+      <ScrollDepth className="m-container relative">
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
           {/* phones — first on mobile, second on desktop */}
           <Reveal y={40} className="order-1 lg:order-2">
@@ -152,7 +153,7 @@ const CustomerSection = () => {
             </div>
           </Reveal>
         </div>
-      </div>
+      </ScrollDepth>
     </section>
   )
 }

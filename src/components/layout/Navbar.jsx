@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Download, Menu, X } from 'lucide-react'
@@ -36,15 +36,43 @@ const Logo = () => (
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const scrolledRef = useRef(false)
   const location = useLocation()
   const navigate = useNavigate()
   const { reduced } = useMotionPrefs()
 
+  /*
+   * Scroll listener.
+   *
+   * This used to call setIsScrolled on every scroll event, scheduling React
+   * work on every frame of every scroll even though the value only ever flips
+   * twice. The ref holds the last committed value so setState now fires only
+   * on the two crossings, and the scrollY read is deferred into a rAF so the
+   * scroll handler itself does no layout-forcing work.
+   */
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10)
-    handleScroll()
+    let frame = 0
+
+    const read = () => {
+      frame = 0
+      const next = window.scrollY > 10
+      if (next !== scrolledRef.current) {
+        scrolledRef.current = next
+        setIsScrolled(next)
+      }
+    }
+
+    const handleScroll = () => {
+      if (frame) return
+      frame = requestAnimationFrame(read)
+    }
+
+    read()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      if (frame) cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   // Close the mobile sheet whenever the route changes
@@ -95,19 +123,14 @@ const Navbar = () => {
 
   return (
     <>
-      <motion.nav
-        initial={false}
-        animate={{
-          backgroundColor: isScrolled ? 'rgba(255,255,255,0.82)' : 'rgba(255,255,255,0.55)',
-          borderBottomColor: isScrolled ? 'rgba(231,238,236,1)' : 'rgba(231,238,236,0)',
-          boxShadow: isScrolled
-            ? '0 1px 2px rgba(16,33,43,0.04), 0 10px 30px -18px rgba(16,33,43,0.22)'
-            : '0 0 0 rgba(0,0,0,0)'
-        }}
-        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-        style={{ backdropFilter: 'blur(18px) saturate(160%)', WebkitBackdropFilter: 'blur(18px) saturate(160%)' }}
-        className="fixed inset-x-0 top-0 z-50 border-b"
-      >
+      {/*
+        The frosted surface is driven by `.m-nav` / `.m-nav--scrolled` in
+        index.css rather than a framer-motion `animate` prop. Same look and
+        same 350ms easing, but the transition runs on the CSS engine instead of
+        a JS animation driver, and the expensive backdrop-filter is only
+        attached once the page is actually scrolled.
+      */}
+      <nav className={`m-nav fixed inset-x-0 top-0 z-50 border-b ${isScrolled ? 'm-nav--scrolled' : ''}`}>
         <div className="m-container">
           <div className="flex h-16 items-center justify-between gap-4 lg:h-20">
             <Logo />
@@ -176,7 +199,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Full-screen mobile navigation */}
       <AnimatePresence>

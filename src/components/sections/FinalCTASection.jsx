@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Download } from 'lucide-react'
-import Reveal from '../motion/Reveal'
+import ScrollDepth from '../motion/ScrollDepth'
 import MagneticButton from '../motion/MagneticButton'
 import useMotionPrefs from '../../hooks/useMotionPrefs'
 
@@ -13,7 +13,10 @@ const FinalCTASection = () => {
 
   return (
     <section className="w-full px-5 pb-16 pt-4 sm:px-6 lg:px-8 lg:pb-24">
-      <Reveal className="mx-auto max-w-7xl">
+      {/* The closing CTA uses the softer depth preset: it still rides the same
+          layered motion, but it stays legible on the way out instead of dimming
+          away like an ordinary mid-page section. */}
+      <ScrollDepth className="mx-auto max-w-7xl" variant="soft">
         <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-mangaale-primary via-mangaale-secondary to-mangaale-deep px-6 py-14 text-center sm:px-10 sm:py-16 lg:rounded-[2.5rem] lg:py-24">
           {/* animated abstract mesh */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -87,7 +90,7 @@ const FinalCTASection = () => {
             </div>
           </div>
         </div>
-      </Reveal>
+      </ScrollDepth>
     </section>
   )
 }

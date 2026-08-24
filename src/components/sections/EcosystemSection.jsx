@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
-import { motion, useTransform } from 'framer-motion'
+import { motion, useInView, useTransform } from 'framer-motion'
 import { Bike, Store, User } from 'lucide-react'
 import Reveal from '../motion/Reveal'
+import ScrollDepth from '../motion/ScrollDepth'
 import usePointerParallax from '../../hooks/usePointerParallax'
 import useMotionPrefs from '../../hooks/useMotionPrefs'
 
@@ -11,6 +12,11 @@ import useMotionPrefs from '../../hooks/useMotionPrefs'
  * A central Mangaale core with three orbiting roles. SVG paths connect them and
  * small light particles travel those paths to represent orders, notifications
  * and delivery requests moving through the platform.
+ *
+ * The particles are SMIL (`<animateMotion>`), which runs on the main thread and
+ * cannot be composited away, so they are mounted only while the stage is on
+ * screen. They used to tick for the whole session no matter where the visitor
+ * had scrolled to.
  */
 
 const NODES = [
@@ -108,6 +114,7 @@ const EcosystemSection = () => {
   const { x, y } = usePointerParallax(stageRef, { stiffness: 70, damping: 22 })
   const { reduced, allowPointerMotion } = useMotionPrefs()
   const [hovered, setHovered] = useState(null)
+  const stageInView = useInView(stageRef, { amount: 0.15 })
 
   const rotateY = useTransform(x, [-0.5, 0.5], reduced ? [0, 0] : [6, -6])
   const rotateX = useTransform(y, [-0.5, 0.5], reduced ? [0, 0] : [-5, 5])
@@ -119,7 +126,7 @@ const EcosystemSection = () => {
         className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-mangaale-primary/8 blur-[130px]"
       />
 
-      <div className="m-container relative">
+      <ScrollDepth className="m-container relative">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="section-eyebrow">The Mangaale Network</p>
           <h2 className="section-title mt-5">
@@ -143,7 +150,7 @@ const EcosystemSection = () => {
               style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
               className="relative h-full w-full"
             >
-              <ConnectionLines animate={!reduced} />
+              <ConnectionLines animate={!reduced && stageInView} />
 
               {/* --- central Mangaale core --- */}
               <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
@@ -205,7 +212,7 @@ const EcosystemSection = () => {
             </Reveal>
           ))}
         </div>
-      </div>
+      </ScrollDepth>
     </section>
   )
 }

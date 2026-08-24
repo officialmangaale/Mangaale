@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Play, Shield, Sparkles, Store, Zap } from 'lucide-react'
 import RevealText from '../motion/RevealText'
 import MagneticButton from '../motion/MagneticButton'
@@ -96,14 +96,51 @@ const HeroSection = () => {
   const sceneRef = useRef(null)
   const sectionRef = useRef(null)
   const { x, y } = usePointerParallax(sceneRef)
-  const { reduced, isDesktop } = useMotionPrefs()
+  const { reduced, isDesktop, isMediumViewport } = useMotionPrefs()
+  const heroInView = useInView(sectionRef, { amount: 0 })
+
+  /*
+   * One dial for the whole hero: 0 under reduced motion (everything below
+   * collapses to identity), and roughly half travel on phones.
+   */
+  const depth = reduced ? 0 : isMediumViewport ? 1 : 0.55
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start']
   })
-  const sceneY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 90])
-  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, reduced ? 1 : 0.94])
+
+  /*
+   * Scroll-linked depth for the hero — three layers moving at three speeds, so
+   * scrolling away from it reads as the whole scene being pushed backwards
+   * rather than sliding off.
+   *
+   *   backdrop : drifts DOWN, so it travels slower than the page (~87% speed)
+   *   copy     : rises fastest, tips back and recedes furthest
+   *   scene    : lags slightly and recedes, keeping the product shot forward
+   *              of the copy the whole way out
+   *
+   * Depth is carried by translateZ against a perspective rather than by
+   * `scale`. A previous pass removed a scroll-linked `scale` from this subtree
+   * because it forced a re-rasterisation of the blur-3xl glow, the two-layer
+   * `shadow-phone` and four drop-shadow-filtered SVGs on every scroll frame.
+   * `willChange` below is what keeps that from coming back: it promotes each
+   * layer once so the compositor transforms a cached raster instead of
+   * repainting it. It is dropped again as soon as the hero leaves the viewport
+   * so the GPU memory is not held for the whole session.
+   */
+  const backdropY = useTransform(scrollYProgress, [0, 1], [0, 110 * depth])
+
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -90 * depth])
+  const copyZ = useTransform(scrollYProgress, [0, 1], [0, -140 * depth])
+  const copyRotateX = useTransform(scrollYProgress, [0, 1], [0, 4 * depth])
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 1 - 0.75 * depth])
+
+  const sceneY = useTransform(scrollYProgress, [0, 1], [0, 90 * depth])
+  const sceneZ = useTransform(scrollYProgress, [0, 1], [0, -110 * depth])
+  const sceneOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 1 - 0.6 * depth])
+
+  const willChange = heroInView && !reduced ? 'transform, opacity' : 'auto'
 
   // Phone tilt follows the pointer, capped at ~7deg
   const phoneRotateY = useTransform(x, [-0.5, 0.5], reduced ? [0, 0] : [7, -7])
@@ -114,12 +151,30 @@ const HeroSection = () => {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-gradient-to-b from-white via-white to-mangaale-tint/60 pt-24 lg:pt-28"
     >
-      <AmbientBackdrop particles={!reduced} />
+      {/* Background layer — drifts down as the page scrolls up, so it trails
+          the content and gives the hero its parallax depth. */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{ y: backdropY, willChange }}
+      >
+        <AmbientBackdrop particles={!reduced} />
+      </motion.div>
 
       <div className="m-container relative z-10">
         <div className="grid items-center gap-12 pb-16 pt-6 lg:grid-cols-[minmax(0,46fr)_minmax(0,54fr)] lg:gap-6 lg:pb-24 lg:pt-10">
           {/* ---------------- COPY (first on every breakpoint) ---------------- */}
-          <div className="text-center lg:text-left">
+          <motion.div
+            className="text-center lg:text-left"
+            style={{
+              y: copyY,
+              z: copyZ,
+              rotateX: copyRotateX,
+              opacity: copyOpacity,
+              transformPerspective: 1200,
+              willChange
+            }}
+          >
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -213,10 +268,18 @@ const HeroSection = () => {
                 </p>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
 
           {/* ---------------- 3D SCENE ---------------- */}
-          <motion.div style={{ y: sceneY, scale: sceneScale }}>
+          <motion.div
+            style={{
+              y: sceneY,
+              z: sceneZ,
+              opacity: sceneOpacity,
+              transformPerspective: 1400,
+              willChange
+            }}
+          >
             <motion.div
               ref={sceneRef}
               initial={{ opacity: 0, scale: 0.92, y: 26 }}
@@ -241,7 +304,11 @@ const HeroSection = () => {
                 depth={0.45}
                 className="absolute bottom-[13%] left-[4%] z-20 w-[104px] sm:bottom-[15%] sm:left-[8%] sm:w-[132px] lg:left-[1%] lg:w-[168px]"
               >
-                <Burger className="h-full w-full animate-float-soft drop-shadow-xl" />
+                {/* Food3D draws its own contact shadow, so the drop-shadow
+                    filter here only needs to add a soft lift. Filters on an
+                    element with an infinite transform animation are the most
+                    expensive thing in this scene, so it is kept small. */}
+                <Burger className="h-full w-full animate-float-soft drop-shadow-md" />
               </ParallaxLayer>
 
               <ParallaxLayer
@@ -251,7 +318,7 @@ const HeroSection = () => {
                 className="absolute bottom-[11%] right-[4%] z-20 w-[100px] sm:bottom-[13%] sm:right-[8%] sm:w-[130px] lg:right-[2%] lg:w-[172px]"
               >
                 <Pizza
-                  className="h-full w-full animate-float-tilt drop-shadow-xl"
+                  className="h-full w-full animate-float-tilt drop-shadow-md"
                   style={{ animationDelay: '1.2s' }}
                 />
               </ParallaxLayer>
@@ -263,7 +330,7 @@ const HeroSection = () => {
                 depth={0.6}
                 className="absolute right-[6%] top-[20%] z-20 hidden w-[118px] sm:block lg:right-[6%] lg:top-[24%] lg:w-[142px]"
               >
-                <BiryaniBowl className="h-full w-full animate-float-y drop-shadow-xl" />
+                <BiryaniBowl className="h-full w-full animate-float-y drop-shadow-md" />
               </ParallaxLayer>
 
               {/* desktop only — deepest layer, so it moves the most */}
@@ -273,7 +340,7 @@ const HeroSection = () => {
                 depth={1}
                 className="absolute left-[3%] top-[34%] z-10 hidden w-[136px] lg:block"
               >
-                <DeliveryBag className="h-full w-full animate-float-soft drop-shadow-2xl" />
+                <DeliveryBag className="h-full w-full animate-float-soft drop-shadow-lg" />
               </ParallaxLayer>
 
               {/* --- the phone --- */}
