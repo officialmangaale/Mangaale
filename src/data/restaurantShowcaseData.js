@@ -4,12 +4,27 @@
  * NOTE: these are representative pilot-phase examples used for the marketing
  * page only. They are intentionally kept in one place so they are easy to
  * swap for real partner data (and real photography) at launch.
+ *
+ * ORDERING-APP LINK FIELDS
+ * ------------------------
+ * `slug`         -> the ordering app's /r/<slug> route (single-restaurant mode)
+ * `categoryKey`  -> the ordering app's /categories/<categoryKey> route
+ * `categoryName` -> passed as ?name= so the category page has a display heading
+ *
+ * ⚠ These are derived from the placeholder names above and MUST be reconciled
+ * with the real slugs and category keys in the ordering app before launch — a
+ * slug that does not exist there lands the customer on the app's 404. They are
+ * held here rather than built at render time precisely so they are easy to find
+ * and correct in one pass.
  */
 
 export const popularRestaurants = [
   {
     name: 'The Tandoor House',
+    slug: 'the-tandoor-house',
     cuisine: 'North Indian · Chinese',
+    categoryKey: 'north-indian',
+    categoryName: 'North Indian',
     rating: '4.6',
     time: '30–40 mins',
     priceForTwo: '₹400 for two',
@@ -20,7 +35,10 @@ export const popularRestaurants = [
   },
   {
     name: 'Foodies Corner',
+    slug: 'foodies-corner',
     cuisine: 'Italian · Continental',
+    categoryKey: 'italian',
+    categoryName: 'Italian',
     rating: '4.5',
     time: '25–35 mins',
     priceForTwo: '₹300 for two',
@@ -31,7 +49,10 @@ export const popularRestaurants = [
   },
   {
     name: 'Biryani Junction',
+    slug: 'biryani-junction',
     cuisine: 'Hyderabadi · Mughlai',
+    categoryKey: 'hyderabadi',
+    categoryName: 'Hyderabadi',
     rating: '4.7',
     time: '35–45 mins',
     priceForTwo: '₹350 for two',
@@ -42,7 +63,10 @@ export const popularRestaurants = [
   },
   {
     name: 'Green Bowl Cafe',
+    slug: 'green-bowl-cafe',
     cuisine: 'Healthy · Salads · Bowls',
+    categoryKey: 'healthy',
+    categoryName: 'Healthy',
     rating: '4.4',
     time: '20–30 mins',
     priceForTwo: '₹280 for two',

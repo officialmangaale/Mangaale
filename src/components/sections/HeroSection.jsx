@@ -1,9 +1,10 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Play, Shield, Sparkles, Store, Zap } from 'lucide-react'
+import { Play, Shield, Sparkles, Store, Zap } from 'lucide-react'
 import RevealText from '../motion/RevealText'
 import MagneticButton from '../motion/MagneticButton'
+import OrderNowButton from '../ui/OrderNowButton'
 import AmbientBackdrop from '../visuals/AmbientBackdrop'
 import PhoneFrame from '../visuals/PhoneFrame'
 import { HomeScreen } from '../visuals/AppScreens'
@@ -229,14 +230,9 @@ const HeroSection = () => {
               transition={{ delay: 0.76, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start"
             >
+              {/* Straight into the ordering app, same tab — see config/orderApp.js */}
               <MagneticButton className="w-full sm:w-auto">
-                <Link
-                  to="/download"
-                  className="mangaale-button-primary group w-full px-7 py-3.5 text-[1rem] sm:w-auto"
-                >
-                  Order Now
-                  <ArrowRight className="btn-arrow h-[18px] w-[18px]" />
-                </Link>
+                <OrderNowButton surface="hero" className="w-full px-7 py-3.5 text-[1rem] sm:w-auto" />
               </MagneticButton>
 
               <Link

@@ -32,7 +32,40 @@ Create a local `.env.local` file if needed:
 
 ```bash
 VITE_API_BASE_URL=http://localhost:8082
+VITE_ORDER_APP_URL=https://food.mangaale.com
 ```
+
+### `VITE_ORDER_APP_URL` — the Mangaale Food Ordering app
+
+The origin of the separate Next.js ordering app that customers actually order
+from. **Every** ordering link on this site — the Order Now button in the header,
+hero and footer, the restaurant cards, the cuisine links and the footer's
+ordering entries — is built from this single value in
+[`src/config/orderApp.js`](src/config/orderApp.js). The hostname appears nowhere
+else in the codebase, and it must not.
+
+That is not tidiness: the ordering app keeps the cart and the login session in
+`localStorage`, which is scoped per origin. If some links pointed at
+`food.mangaale.com` and others at a staging host, a customer would build a cart
+on one origin and arrive logged out with an empty cart on the other.
+
+Vite inlines `VITE_*` at **build** time, so this is a build input, not a runtime
+one — it has to be set before `npm run build` in each environment:
+
+| Environment | Where to set it |
+| --- | --- |
+| Local dev | `.env.local` (falls back to the committed `.env`) |
+| Vercel | Project → Settings → Environment Variables → `VITE_ORDER_APP_URL`, then redeploy |
+| Docker / nginx | `docker build --build-arg VITE_ORDER_APP_URL=https://food.mangaale.com .` |
+
+No trailing slash (one is stripped anyway). If the variable is unset the module
+falls back to `https://food.mangaale.com` so links never render as
+`undefined/restaurants`.
+
+Add a new ordering link by importing a builder from `src/config/orderApp.js`
+(`restaurantUrl`, `categoryUrl`, `trendingUrl`, `searchUrl`, `orderTrackingUrl`,
+…) and rendering it through `src/components/ui/OrderAppLink.jsx`, which is a
+real `<a href>` in the same tab and reports the click surface to analytics.
 
 ## Demo form integration
 

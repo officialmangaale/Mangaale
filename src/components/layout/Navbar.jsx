@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Download, Menu, X } from 'lucide-react'
 import MagneticButton from '../motion/MagneticButton'
+import OrderNowButton from '../ui/OrderNowButton'
 import useMotionPrefs from '../../hooks/useMotionPrefs'
 
 /**
@@ -185,6 +186,13 @@ const Navbar = () => {
                   Partner With Us
                 </button>
               </MagneticButton>
+              {/*
+                Rightmost, so the customer-facing action reads as the terminal
+                CTA of the row. Leaves the ordering app in this tab on purpose.
+              */}
+              <MagneticButton>
+                <OrderNowButton surface="header" className="px-4 py-2 text-[0.88rem]" />
+              </MagneticButton>
             </div>
 
             {/* Mobile toggle */}
@@ -254,6 +262,7 @@ const Navbar = () => {
                 transition={{ delay: 0.34, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-8 flex flex-col gap-3 border-t border-mangaale-border pt-6"
               >
+                <OrderNowButton surface="header-mobile" className="w-full" />
                 <button type="button" onClick={handleDownload} className="mangaale-button-secondary w-full">
                   <Download className="h-4 w-4" />
                   Download App

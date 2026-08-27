@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from 'lucide-react'
 import { contactData } from '../../data/contactData'
+import OrderAppLink from '../ui/OrderAppLink'
+import OrderNowButton from '../ui/OrderNowButton'
+import { orderHistoryUrl, restaurantsUrl, trendingUrl } from '../../config/orderApp'
 
 /**
  * Dark footer.
@@ -21,11 +24,24 @@ const COLUMNS = [
     ]
   },
   {
+    /*
+     * `to` is an in-site route; `href` is an absolute ordering-app URL built by
+     * config/orderApp.js. The three ordering entries below are additions — the
+     * existing marketing links are unchanged and still point where they did.
+     */
     title: 'Customers',
     links: [
       { label: 'Order Food', to: '/for-customers' },
       { label: 'Download App', to: '/download' },
-      { label: 'Offers', to: '/for-customers' }
+      { label: 'Offers', to: '/for-customers' },
+      { label: 'Browse Restaurants', href: restaurantsUrl(), surface: 'footer-nav' },
+      { label: 'Trending Dishes', href: trendingUrl(), surface: 'footer-nav' },
+      /*
+       * The app's live-tracking route needs an order id, which a marketing page
+       * never has. Order history is the real entry point: the customer picks the
+       * order there and the app takes them on to /orders/<id>/track.
+       */
+      { label: 'Track Your Order', href: orderHistoryUrl(), surface: 'footer-nav' }
     ]
   },
   {
@@ -52,6 +68,20 @@ const SOCIALS = [
   { label: 'LinkedIn', Icon: Linkedin, href: 'https://linkedin.com/company/mangaale' },
   { label: 'Twitter', Icon: Twitter, href: 'https://twitter.com/mangaale' }
 ]
+
+const FOOTER_LINK_CLASS = 'text-[0.9rem] text-white/60 transition-colors hover:text-mangaale-bright'
+
+/* One row of a footer column: an in-site route, or a link into the ordering app. */
+const FooterLink = ({ link }) =>
+  link.href ? (
+    <OrderAppLink href={link.href} surface={link.surface} className={FOOTER_LINK_CLASS}>
+      {link.label}
+    </OrderAppLink>
+  ) : (
+    <Link to={link.to} className={FOOTER_LINK_CLASS}>
+      {link.label}
+    </Link>
+  )
 
 const Footer = () => (
   <footer className="relative w-full overflow-hidden bg-mangaale-navy text-white">
@@ -81,6 +111,9 @@ const Footer = () => (
             ecosystem.
           </p>
 
+          {/* White on navy — a turquoise fill on this surface reads as low contrast. */}
+          <OrderNowButton surface="footer" variant="onDark" className="mt-6 px-6 py-3" />
+
           <div className="mt-6 flex gap-2.5">
             {SOCIALS.map(({ label, Icon, href }) => (
               <a
@@ -106,12 +139,7 @@ const Footer = () => (
             <ul className="mt-4 space-y-2.5">
               {column.links.map((link) => (
                 <li key={`${column.title}-${link.label}`}>
-                  <Link
-                    to={link.to}
-                    className="text-[0.9rem] text-white/60 transition-colors hover:text-mangaale-bright"
-                  >
-                    {link.label}
-                  </Link>
+                  <FooterLink link={link} />
                 </li>
               ))}
             </ul>

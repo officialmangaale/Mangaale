@@ -4,7 +4,18 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+
+# Ordering-app origin. Vite inlines VITE_* at build time, so this has to be set
+# before `npm run build`, not at container start:
+#   docker build --build-arg VITE_ORDER_APP_URL=https://food.mangaale.com .
+# Written to .env.local (which outranks the committed .env in Vite's env
+# precedence) and only when actually passed, so an unset arg cannot blank the
+# value that .env already provides.
+ARG VITE_ORDER_APP_URL
+RUN if [ -n "$VITE_ORDER_APP_URL" ]; then \
+      printf '\nVITE_ORDER_APP_URL=%s\n' "$VITE_ORDER_APP_URL" >> .env.local; \
+    fi \
+ && npm run build
 
 # ── Production Stage ──
 FROM nginx:alpine

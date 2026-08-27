@@ -3,6 +3,8 @@ import { Clock, Heart, Star } from 'lucide-react'
 import Reveal from '../motion/Reveal'
 import ScrollDepth from '../motion/ScrollDepth'
 import { popularRestaurants } from '../../data/restaurantShowcaseData'
+import OrderAppLink from '../ui/OrderAppLink'
+import { categoryUrl, restaurantUrl } from '../../config/orderApp'
 import useMotionPrefs from '../../hooks/useMotionPrefs'
 
 /**
@@ -23,7 +25,7 @@ const RestaurantCard = ({ item }) => {
   const [liked, setLiked] = useState(false)
 
   return (
-    <article className="group h-full overflow-hidden rounded-2xl border border-mangaale-border bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-mangaale-primary/30 hover:shadow-card">
+    <article className="group relative h-full overflow-hidden rounded-2xl border border-mangaale-border bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-mangaale-primary/30 hover:shadow-card">
       {/* image plate — gradient + emoji stands in for photography */}
       <div className="relative h-36 overflow-hidden sm:h-40">
         <div
@@ -46,7 +48,7 @@ const RestaurantCard = ({ item }) => {
           onClick={() => setLiked((v) => !v)}
           aria-label={liked ? `Remove ${item.name} from favourites` : `Add ${item.name} to favourites`}
           aria-pressed={liked}
-          className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition-transform duration-200 hover:scale-110"
+          className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition-transform duration-200 hover:scale-110"
         >
           <Heart
             className={`h-4 w-4 transition-colors ${
@@ -65,7 +67,16 @@ const RestaurantCard = ({ item }) => {
           </span>
         </div>
 
-        <p className="mt-1 truncate text-[0.85rem] text-mangaale-subtext">{item.cuisine}</p>
+        {/* The cuisine a customer can see is the cuisine they can browse. */}
+        <p className="mt-1 truncate text-[0.85rem] text-mangaale-subtext">
+          <OrderAppLink
+            href={categoryUrl(item.categoryKey, { name: item.categoryName })}
+            surface="popular-restaurants-cuisine"
+            className="relative z-10 transition-colors hover:text-mangaale-primary hover:underline"
+          >
+            {item.cuisine}
+          </OrderAppLink>
+        </p>
 
         <div className="mt-3 flex items-center justify-between border-t border-mangaale-border pt-3">
           <span className="flex items-center gap-1.5 text-[0.8rem] font-semibold text-mangaale-subtext">
@@ -75,6 +86,24 @@ const RestaurantCard = ({ item }) => {
           <span className="text-[0.8rem] font-semibold text-mangaale-subtext">{item.priceForTwo}</span>
         </div>
       </div>
+
+      {/*
+        Stretched link — an invisible <a> covering the whole card, so the tile is
+        clickable without nesting the heart <button> or the cuisine link inside
+        an anchor (invalid, and it would swallow their clicks). Those two carry
+        z-10 to sit above this overlay; everything else is inert decoration.
+
+        /r/<slug> rather than /restaurants/<id>: arriving from a specific
+        restaurant's card means the customer has already chosen where to eat, so
+        single-restaurant mode is the right landing experience.
+      */}
+      <OrderAppLink
+        href={restaurantUrl(item.slug)}
+        surface="popular-restaurants"
+        className="absolute inset-0 z-0 rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-mangaale-primary"
+      >
+        <span className="sr-only">{`Order from ${item.name}`}</span>
+      </OrderAppLink>
     </article>
   )
 }
