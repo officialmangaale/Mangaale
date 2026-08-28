@@ -6,8 +6,15 @@ import HomePage from '../pages/HomePage'
 /**
  * The home page is bundled eagerly (it is the entry point for almost every
  * visitor); every other route is code-split so the initial JS payload stays
- * small. All original routes are preserved, plus /terms and /account-deletion
- * which were linked from the footer but had no route.
+ * small.
+ *
+ * /privacy-policy and /account-deletion are deliberately absent: they are
+ * pre-rendered HTML (scripts/staticPages.js) served ahead of the SPA rewrite,
+ * because Play reviewers and crawlers do not run JavaScript. Route them here
+ * again and react-router would swallow the navigation and show its own page
+ * instead of the document those reviewers need. data/siteRoutes.js is the list
+ * both halves read from; components/ui/SiteLink keeps links pointed at the real
+ * documents.
  */
 const AboutPage = lazy(() => import('../pages/AboutPage'))
 const ForRestaurantsPage = lazy(() => import('../pages/ForRestaurantsPage'))
@@ -16,9 +23,7 @@ const ForRidersPage = lazy(() => import('../pages/ForRidersPage'))
 const PricingPage = lazy(() => import('../pages/PricingPage'))
 const ContactPage = lazy(() => import('../pages/ContactPage'))
 const DownloadPage = lazy(() => import('../pages/DownloadPage'))
-const PrivacyPolicyPage = lazy(() => import('../pages/PrivacyPolicyPage'))
 const TermsPage = lazy(() => import('../pages/TermsPage'))
-const AccountDeletionPage = lazy(() => import('../pages/AccountDeletionPage'))
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'))
 
 const RouteFallback = () => (
@@ -41,9 +46,7 @@ const AppRoutes = () => {
         { path: '/pricing', element: <PricingPage /> },
         { path: '/contact', element: <ContactPage /> },
         { path: '/download', element: <DownloadPage /> },
-        { path: '/privacy-policy', element: <PrivacyPolicyPage /> },
         { path: '/terms', element: <TermsPage /> },
-        { path: '/account-deletion', element: <AccountDeletionPage /> },
         { path: '*', element: <NotFoundPage /> }
       ]
     }

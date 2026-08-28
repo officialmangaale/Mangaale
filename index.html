@@ -27,7 +27,43 @@
     />
   </head>
   <body class="bg-mangaale-bg text-mangaale-text">
-    <div id="root"></div>
+    <div id="root">
+      <!--
+        The app renders into #root and React clears whatever is inside it first,
+        so this block never reaches a visitor with JavaScript. It reaches the
+        ones who matter here: Play reviewers, privacy crawlers and search
+        engines, none of which execute JavaScript, get the legal links and the
+        company's contact details in the raw HTML of every SPA URL rather than
+        an empty shell. The two legal documents themselves are pre-rendered and
+        served ahead of the SPA rewrite -- see scripts/staticPages.js.
+      -->
+      <noscript>
+        <h1>Mangaale</h1>
+        <p>
+          Mangaale is an all-in-one restaurant and food commerce operations platform for billing,
+          inventory, KDS, QR ordering and delivery. This site needs JavaScript for its interactive
+          pages; the documents below are plain HTML and need none.
+        </p>
+        <ul>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/account-deletion">Account Deletion</a></li>
+          <li><a href="/terms">Terms &amp; Conditions</a></li>
+        </ul>
+        <h2>Contact</h2>
+        <p>
+          Email: <a href="mailto:supportmangaale@gmail.com">supportmangaale@gmail.com</a><br />
+          Phone: <a href="tel:+918193818203">+91 8193818203</a><br />
+          Website: <a href="https://www.mangaale.com">https://www.mangaale.com</a>
+        </p>
+        <address>
+          Mangaale<br />
+          Vill Kadrabad, P.O. Kadrabad<br />
+          Kadrabad, Nagina<br />
+          Bijnor &#8211; 246722<br />
+          Uttar Pradesh, India
+        </address>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Download, Menu, X } from 'lucide-react'
+import SiteLink from '../ui/SiteLink'
 import MagneticButton from '../motion/MagneticButton'
 import OrderNowButton from '../ui/OrderNowButton'
 import useMotionPrefs from '../../hooks/useMotionPrefs'
@@ -139,7 +140,7 @@ const Navbar = () => {
             {/* Desktop nav */}
             <div className="hidden items-center gap-1 lg:flex">
               {navItems.map((item) => (
-                <Link
+                <SiteLink
                   key={item.path}
                   to={item.path}
                   className={`relative rounded-lg px-3 py-2 text-[0.9rem] font-semibold transition-colors ${
@@ -156,7 +157,7 @@ const Navbar = () => {
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                </Link>
+                </SiteLink>
               ))}
             </div>
 
@@ -236,7 +237,7 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.05 + i * 0.045, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <Link
+                    <SiteLink
                       to={item.path}
                       onClick={() => setIsOpen(false)}
                       className={`flex items-center justify-between rounded-2xl px-4 py-4 text-[1.05rem] font-bold transition-colors ${
@@ -251,7 +252,7 @@ const Navbar = () => {
                           isActive(item.path) ? 'bg-mangaale-primary' : 'bg-transparent'
                         }`}
                       />
-                    </Link>
+                    </SiteLink>
                   </motion.div>
                 ))}
               </div>

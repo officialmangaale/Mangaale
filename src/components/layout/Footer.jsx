@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from 'lucide-react'
-import { contactData } from '../../data/contactData'
+import { companyData } from '../../data/companyData'
+import SiteLink from '../ui/SiteLink'
 import OrderAppLink from '../ui/OrderAppLink'
 import OrderNowButton from '../ui/OrderNowButton'
 import { orderHistoryUrl, restaurantsUrl, trendingUrl } from '../../config/orderApp'
@@ -78,9 +79,9 @@ const FooterLink = ({ link }) =>
       {link.label}
     </OrderAppLink>
   ) : (
-    <Link to={link.to} className={FOOTER_LINK_CLASS}>
+    <SiteLink to={link.to} className={FOOTER_LINK_CLASS}>
       {link.label}
-    </Link>
+    </SiteLink>
   )
 
 const Footer = () => (
@@ -147,23 +148,37 @@ const Footer = () => (
         ))}
       </div>
 
-      {/* contact strip */}
-      <div className="mt-12 grid gap-4 border-t border-white/10 pt-8 sm:grid-cols-3">
+      {/*
+        Contact strip. The support email, phone and the full registered postal
+        address are printed here on every page: Play review checks that the
+        address shown against the app matches the one in the console, and
+        expects to find it without hunting through a contact form.
+      */}
+      <div className="mt-12 grid gap-5 border-t border-white/10 pt-8 sm:grid-cols-3">
         <a
-          href={`mailto:${contactData.email}`}
-          className="flex items-center gap-2.5 text-[0.9rem] text-white/60 transition-colors hover:text-mangaale-bright"
+          href={`mailto:${companyData.supportEmail}`}
+          className="flex items-start gap-2.5 text-[0.9rem] text-white/60 transition-colors hover:text-mangaale-bright"
         >
-          <Mail className="h-4 w-4 shrink-0 text-mangaale-primary" />
-          {contactData.email}
+          <Mail className="mt-1 h-4 w-4 shrink-0 text-mangaale-primary" />
+          {companyData.supportEmail}
         </a>
-        <p className="flex items-center gap-2.5 text-[0.9rem] text-white/60">
-          <Phone className="h-4 w-4 shrink-0 text-mangaale-primary" />
-          {contactData.phones.join(' / ')}
-        </p>
-        <p className="flex items-center gap-2.5 text-[0.9rem] text-white/60">
-          <MapPin className="h-4 w-4 shrink-0 text-mangaale-primary" />
-          {contactData.office}
-        </p>
+        <a
+          href={`tel:${companyData.phone.replace(/\s/g, '')}`}
+          className="flex items-start gap-2.5 text-[0.9rem] text-white/60 transition-colors hover:text-mangaale-bright"
+        >
+          <Phone className="mt-1 h-4 w-4 shrink-0 text-mangaale-primary" />
+          {companyData.phone}
+        </a>
+        <address className="flex items-start gap-2.5 text-[0.9rem] not-italic leading-relaxed text-white/60">
+          <MapPin className="mt-1 h-4 w-4 shrink-0 text-mangaale-primary" />
+          <span>
+            {companyData.addressLines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </span>
+        </address>
       </div>
 
       <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-[0.82rem] text-white/45 sm:flex-row">

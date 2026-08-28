@@ -26,6 +26,69 @@ npm run dev
 npm run build
 ```
 
+## Pre-rendered pages (no JavaScript required)
+
+Everything else here is a single-page app: the server returns one empty shell
+for every URL and React paints the content afterwards. Google Play reviewers,
+privacy crawlers and search engines do not run JavaScript, so for them those
+pages are blank — which is what blocked review of `com.mangaale.restaurant`.
+
+Five files are therefore generated as complete documents at build time by
+[`scripts/staticPages.js`](scripts/staticPages.js), wired in through a small
+plugin in [`vite.config.js`](vite.config.js):
+
+| URL | Output file | Notes |
+| --- | --- | --- |
+| `/privacy-policy` | `privacy-policy.html` | full policy, styles inlined |
+| `/account-deletion` | `account-deletion.html` | the URL given to Play |
+| unknown paths | `404.html` | served with a real HTTP 404 |
+| `/robots.txt` | `robots.txt` | `text/plain`, points at the sitemap |
+| `/sitemap.xml` | `sitemap.xml` | `application/xml` |
+
+They are built rather than dropped into `public/` so they can share one
+stylesheet, one footer and one copy of the company's contact details with the
+rest of the site — legal text that exists in two places drifts, and the address
+and support email here have to match the Play Console entry exactly. Edit the
+copy in `scripts/staticPages.js` and the contact details in
+[`src/data/companyData.js`](src/data/companyData.js); nothing else needs to
+change. Bump `legalLastUpdated` in the same file whenever the documents change:
+it drives both the visible "Last updated" line and the sitemap's `<lastmod>`.
+
+`vite dev` serves the identical strings, so the pages can be checked with
+JavaScript disabled before they ship.
+
+### Four places that must agree about routes
+
+[`src/data/siteRoutes.js`](src/data/siteRoutes.js) is the list. Add a page and
+update all four:
+
+1. `src/data/siteRoutes.js` — the list itself, and the sitemap built from it.
+2. `src/routes/AppRoutes.jsx` — the SPA routes.
+3. `vercel.json` — `rewrites` sends exactly these paths to the app shell.
+4. `nginx.conf` — the same allow-list, as a regex `location`.
+
+The rewrite lists are allow-lists, not a catch-all, so that an unknown path can
+return a genuine 404 instead of HTTP 200 and the home page.
+
+Routes marked `static: true` are pre-rendered and **must not** be added to
+`AppRoutes.jsx`: react-router would intercept the navigation and render its own
+404 instead of the document. Link to them with
+[`SiteLink`](src/components/ui/SiteLink.jsx), which emits a real `<a href>` for
+those paths and a client-side `<Link>` for everything else.
+
+### Verifying a deploy
+
+With JavaScript disabled, all five must pass:
+
+```bash
+curl -s  https://www.mangaale.com/account-deletion      | grep -i "supportmangaale"
+curl -s  https://www.mangaale.com/privacy-policy         | grep -i "Bijnor"
+curl -sI https://www.mangaale.com/robots.txt             | grep -i "text/plain"
+curl -s  https://www.mangaale.com/sitemap.xml            | grep -i "<urlset"
+curl -sI https://www.mangaale.com/nonexistent-path-test  | grep "404"
+```
+
+
 ## Environment variables
 
 Create a local `.env.local` file if needed:

@@ -21,15 +21,12 @@ RUN if [ -n "$VITE_ORDER_APP_URL" ]; then \
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# SPA fallback: route all paths to index.html
-RUN printf 'server {\n\
-  listen 80;\n\
-  root /usr/share/nginx/html;\n\
-  index index.html;\n\
-  location / {\n\
-    try_files $uri $uri/ /index.html;\n\
-  }\n\
-}\n' > /etc/nginx/conf.d/default.conf
+# The image used to inline its own server block here, which meant the committed
+# nginx.conf was never the config that actually ran: the inlined copy kept the
+# blanket `try_files $uri $uri/ /index.html` fallback, so the container answered
+# /robots.txt, /sitemap.xml and every unknown path with the app shell and a 200.
+# One config, checked in, is now the only one.
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

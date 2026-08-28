@@ -21,7 +21,7 @@ const SECTIONS = [
   },
   {
     title: '3. Accounts and Security',
-    body: 'You are responsible for the accuracy of the information on your account and for keeping your sign-in credentials secure. Notify us promptly at support@mangaale.com if you believe your account has been accessed without your permission.'
+    body: 'You are responsible for the accuracy of the information on your account and for keeping your sign-in credentials secure. Notify us promptly at supportmangaale@gmail.com if you believe your account has been accessed without your permission.'
   },
   {
     title: '4. Orders, Pricing and Payments',
@@ -110,10 +110,10 @@ const TermsPage = () => {
         <p className="mt-3 leading-relaxed text-mangaale-subtext">
           Questions about these terms? Email{' '}
           <a
-            href="mailto:support@mangaale.com"
+            href="mailto:supportmangaale@gmail.com"
             className="font-semibold text-mangaale-primary hover:underline"
           >
-            support@mangaale.com
+            supportmangaale@gmail.com
           </a>{' '}
           or visit our{' '}
           <Link to="/contact" className="font-semibold text-mangaale-primary hover:underline">
