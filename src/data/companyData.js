@@ -34,6 +34,6 @@ export const addressOneLine = companyData.addressLines.join(', ')
  * line and the sitemap's <lastmod> both read from here.
  */
 export const legalLastUpdated = {
-  iso: '2026-08-29',
-  label: 'August 29, 2026'
+  iso: '2026-08-30',
+  label: 'August 30, 2026'
 }

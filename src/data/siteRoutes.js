@@ -25,7 +25,7 @@ export const siteRoutes = [
   { path: '/download', priority: '0.7', changefreq: 'monthly' },
   { path: '/privacy-policy', priority: '0.9', changefreq: 'yearly', static: true },
   { path: '/account-deletion', priority: '0.9', changefreq: 'yearly', static: true },
-  { path: '/terms', priority: '0.5', changefreq: 'yearly' }
+  { path: '/terms', priority: '0.9', changefreq: 'yearly', static: true }
 ]
 
 /** Paths served as pre-rendered HTML, outside the single-page app. */

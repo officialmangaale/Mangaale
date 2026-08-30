@@ -27,7 +27,6 @@
     { "source": "/for-riders", "destination": "/" },
     { "source": "/pricing", "destination": "/" },
     { "source": "/contact", "destination": "/" },
-    { "source": "/download", "destination": "/" },
-    { "source": "/terms", "destination": "/" }
+    { "source": "/download", "destination": "/" }
   ]
 }

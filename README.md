@@ -33,26 +33,41 @@ for every URL and React paints the content afterwards. Google Play reviewers,
 privacy crawlers and search engines do not run JavaScript, so for them those
 pages are blank — which is what blocked review of `com.mangaale.restaurant`.
 
-Five files are therefore generated as complete documents at build time by
+Six files are therefore emitted as complete documents at build time by
 [`scripts/staticPages.js`](scripts/staticPages.js), wired in through a small
 plugin in [`vite.config.js`](vite.config.js):
 
 | URL | Output file | Notes |
 | --- | --- | --- |
+| `/terms` | `terms.html` | full Terms of Service, styles inlined |
 | `/privacy-policy` | `privacy-policy.html` | full policy, styles inlined |
 | `/account-deletion` | `account-deletion.html` | the URL given to Play |
 | unknown paths | `404.html` | served with a real HTTP 404 |
 | `/robots.txt` | `robots.txt` | `text/plain`, points at the sitemap |
 | `/sitemap.xml` | `sitemap.xml` | `application/xml` |
 
-They are built rather than dropped into `public/` so they can share one
-stylesheet, one footer and one copy of the company's contact details with the
-rest of the site — legal text that exists in two places drifts, and the address
-and support email here have to match the Play Console entry exactly. Edit the
-copy in `scripts/staticPages.js` and the contact details in
-[`src/data/companyData.js`](src/data/companyData.js); nothing else needs to
-change. Bump `legalLastUpdated` in the same file whenever the documents change:
-it drives both the visible "Last updated" line and the sitemap's `<lastmod>`.
+The legal wording is not authored in this website repository. Its source of
+truth is the Markdown in `officialmangaale/restaurant-owner` on `preprod`:
+
+```text
+terms/terms.md
+privacy-policy/privacy-policy.md
+account-deletion/account-deletion.md
+        ↓ dart run tool/generate_legal_html.dart
+legal-deploy/terms.html
+legal-deploy/privacy-policy.html
+legal-deploy/account-deletion.html
+        ↓ byte-for-byte copy
+this repository: legal-pages/*.html
+        ↓ npm run build
+dist/terms.html, dist/privacy-policy.html, dist/account-deletion.html
+```
+
+Never edit `legal-pages/*.html` independently. Regenerate from Markdown and
+copy all three artifacts together. The website build rejects a legal artifact
+that omits the company CIN or contains a draft marker. Bump `legalLastUpdated`
+in [`src/data/companyData.js`](src/data/companyData.js) when synchronizing a
+legal release so the sitemap's `<lastmod>` remains accurate.
 
 `vite dev` serves the identical strings, so the pages can be checked with
 JavaScript disabled before they ship.
@@ -78,9 +93,10 @@ those paths and a client-side `<Link>` for everything else.
 
 ### Verifying a deploy
 
-With JavaScript disabled, all five must pass:
+With JavaScript disabled, all six must pass:
 
 ```bash
+curl -s  https://mangaale.com/terms                  | grep "U47912UP2026OPC251523"
 curl -s  https://www.mangaale.com/account-deletion      | grep -i "supportmangaale"
 curl -s  https://www.mangaale.com/privacy-policy         | grep -i "Bijnor"
 curl -sI https://www.mangaale.com/robots.txt             | grep -i "text/plain"

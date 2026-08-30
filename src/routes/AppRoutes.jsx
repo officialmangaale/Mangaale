@@ -8,8 +8,8 @@ import HomePage from '../pages/HomePage'
  * visitor); every other route is code-split so the initial JS payload stays
  * small.
  *
- * /privacy-policy and /account-deletion are deliberately absent: they are
- * pre-rendered HTML (scripts/staticPages.js) served ahead of the SPA rewrite,
+ * /terms, /privacy-policy and /account-deletion are deliberately absent: they
+ * are pre-rendered HTML (scripts/staticPages.js) served ahead of the SPA rewrite,
  * because Play reviewers and crawlers do not run JavaScript. Route them here
  * again and react-router would swallow the navigation and show its own page
  * instead of the document those reviewers need. data/siteRoutes.js is the list
@@ -23,7 +23,6 @@ const ForRidersPage = lazy(() => import('../pages/ForRidersPage'))
 const PricingPage = lazy(() => import('../pages/PricingPage'))
 const ContactPage = lazy(() => import('../pages/ContactPage'))
 const DownloadPage = lazy(() => import('../pages/DownloadPage'))
-const TermsPage = lazy(() => import('../pages/TermsPage'))
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'))
 
 const RouteFallback = () => (
@@ -46,7 +45,6 @@ const AppRoutes = () => {
         { path: '/pricing', element: <PricingPage /> },
         { path: '/contact', element: <ContactPage /> },
         { path: '/download', element: <DownloadPage /> },
-        { path: '/terms', element: <TermsPage /> },
         { path: '*', element: <NotFoundPage /> }
       ]
     }

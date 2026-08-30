@@ -5,12 +5,12 @@ import react from '@vitejs/plugin-react'
 import { renderStaticPages } from './scripts/staticPages.js'
 
 /**
- * Emits the pre-rendered, JavaScript-free pages (privacy policy, account
- * deletion, 404, robots.txt, sitemap.xml) defined in scripts/staticPages.js.
+ * Emits the pre-rendered, JavaScript-free pages (terms, privacy policy,
+ * account deletion, 404, robots.txt, sitemap.xml) defined in
+ * scripts/staticPages.js.
  *
- * It hangs off the build rather than sitting in `public/` so the documents can
- * share one stylesheet, one footer and one copy of the company's contact
- * details with the rest of the site — legal text that exists twice drifts.
+ * It hangs off the build rather than sitting in `public/` so development and
+ * production serve the same flat legal artifacts at extensionless URLs.
  *
  * `closeBundle` covers every build path (npm run build, the Docker image,
  * Vercel); `configureServer` serves the identical strings in `vite dev`, so the
