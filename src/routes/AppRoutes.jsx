@@ -23,6 +23,7 @@ const ForRidersPage = lazy(() => import('../pages/ForRidersPage'))
 const PricingPage = lazy(() => import('../pages/PricingPage'))
 const ContactPage = lazy(() => import('../pages/ContactPage'))
 const DownloadPage = lazy(() => import('../pages/DownloadPage'))
+const ReferralPage = lazy(() => import('../pages/ReferralPage'))
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'))
 
 const RouteFallback = () => (
@@ -45,6 +46,12 @@ const AppRoutes = () => {
         { path: '/pricing', element: <PricingPage /> },
         { path: '/contact', element: <ContactPage /> },
         { path: '/download', element: <DownloadPage /> },
+        // Referral invite links shared from the apps. Deliberately absent
+        // from data/siteRoutes.js: a referral URL is per-person and endless
+        // in number, so it must not enter the sitemap. The page sets
+        // noindex for the same reason. nginx.conf and vercel.json still
+        // need a matching rewrite, or a direct hit 404s before React loads.
+        { path: '/r/:code', element: <ReferralPage /> },
         { path: '*', element: <NotFoundPage /> }
       ]
     }

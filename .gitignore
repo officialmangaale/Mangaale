@@ -2,3 +2,9 @@ node_modules
 dist
 .vercel
 
+# Release signing keys. Committing one lets anyone publish an update that
+# Android and the Play Store accept as genuinely yours, and it cannot be
+# rotated for an already-published app. Keep it out of the repo.
+*.keystore
+*.jks
+key.properties
