@@ -5,35 +5,11 @@
     ],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.turquoise.turquoise_delivery",
-      "sha256_cert_fingerprints": [
-        "REPLACE_WITH_CUSTOMER_APP_SHA256_FINGERPRINT"
-      ]
-    }
-  },
-  {
-    "relation": [
-      "delegate_permission/common.handle_all_urls"
-    ],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.rydex.rider.rydex_rider",
-      "sha256_cert_fingerprints": [
-        "REPLACE_WITH_RIDER_APP_SHA256_FINGERPRINT"
-      ]
-    }
-  },
-  {
-    "relation": [
-      "delegate_permission/common.handle_all_urls"
-    ],
-    "target": {
-      "namespace": "android_app",
       "package_name": "com.mangaale.restaurant",
       "sha256_cert_fingerprints": [
-        "13:E0:DE:98:B0:C7:7C:CC:22:C0:47:EA:9C:97:8D:EE:98:78:0A:78:86:72:F3:6B:87:D3:13:0E:82:9F:83:12"
+        "13:E0:DE:98:B0:C7:7C:CC:22:C0:47:EA:9C:97:8D:EE:98:78:0A:78:86:72:F3:6B:87:D3:13:0E:82:9F:83:12",
+        "C8:04:12:8D:09:63:59:EC:7C:13:5E:CC:1C:4B:C1:03:32:FF:FE:0C:5B:E1:8C:43:F4:B8:01:10:52:4C:D7:46"
       ]
     }
   }
 ]
-
